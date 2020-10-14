@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE1-MTCG", "SWE1-MTCG\SWE1-MTCG.csproj", "{980F336B-4DD4-4C1F-AAAE-CCDEC2BD4E5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE1-MTCG.Test", "SWE1-MTCG.Test\SWE1-MTCG.Test.csproj", "{A572D392-6E02-40D8-9D2C-75A4C35DDA5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{980F336B-4DD4-4C1F-AAAE-CCDEC2BD4E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{980F336B-4DD4-4C1F-AAAE-CCDEC2BD4E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{980F336B-4DD4-4C1F-AAAE-CCDEC2BD4E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{980F336B-4DD4-4C1F-AAAE-CCDEC2BD4E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A572D392-6E02-40D8-9D2C-75A4C35DDA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A572D392-6E02-40D8-9D2C-75A4C35DDA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A572D392-6E02-40D8-9D2C-75A4C35DDA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A572D392-6E02-40D8-9D2C-75A4C35DDA5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {494AF741-2E34-4037-BAF5-AD1B6B4A58A1}
+	EndGlobalSection
+EndGlobal
