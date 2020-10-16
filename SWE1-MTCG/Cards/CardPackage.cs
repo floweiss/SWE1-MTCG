@@ -10,28 +10,28 @@ namespace SWE1_MTCG.Cards
 {
     public class CardPackage : ICardCollection
     {
-        public List<Card> cardCollection;
+        public List<Card> CardCollection;
 
         public CardPackage()
         {
-            cardCollection = new List<Card>();
+            CardCollection = new List<Card>();
             GetRandomCards();
         }
 
         public void AddCard(Card addedCard)
         {
-            cardCollection.Add(addedCard);
+            CardCollection.Add(addedCard);
         }
 
         public void RemoveCard(Card removedCard)
         {
-            cardCollection.Remove(removedCard);
+            CardCollection.Remove(removedCard);
         }
 
         private void GetRandomCards()
         {
             // ToDo: Randomize Cards
-            cardCollection.AddRange(new List<Card>{
+            CardCollection.AddRange(new List<Card>{
                 new Wizard("Gandalf", 100, ElementType.Normal),
                 new Orc("Burul", 80, ElementType.Normal),
                 new Elve("Erlan Erhice", 50, ElementType.Fire),
