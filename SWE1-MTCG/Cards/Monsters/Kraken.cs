@@ -4,11 +4,11 @@ using System.Text;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Enums;
 
-namespace SWE1_MTCG.Cards
+namespace SWE1_MTCG.Cards.Monsters
 {
-    public class Knight : Card, IMonster
+    public class Kraken : Card, IMonster
     {
-        public Knight(string name, double damage, ElementType type)
+        public Kraken(string name, double damage, ElementType type)
         {
             Name = name;
             Damage = damage;
@@ -20,9 +20,9 @@ namespace SWE1_MTCG.Cards
             throw new NotImplementedException();
         }
 
-        public bool Drown(Card card)
+        public bool Immune(Card card)
         {
-            return card is WaterSpell;
+            return card is ISpell;
         }
     }
 }

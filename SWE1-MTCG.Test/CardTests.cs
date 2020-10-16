@@ -5,8 +5,10 @@ using SWE1_MTCG.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SWE1_MTCG.Cards.Monsters;
+using SWE1_MTCG.Cards.Spells;
 
-namespace SWE1_MTCG.Test.CardTests
+namespace SWE1_MTCG.Test
 {
     [TestFixture]
     public class CardTests

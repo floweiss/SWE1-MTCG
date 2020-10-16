@@ -4,15 +4,15 @@ using System.Text;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Enums;
 
-namespace SWE1_MTCG.Cards
+namespace SWE1_MTCG.Cards.Spells
 {
-    public class NormalSpell : Card, ISpell
+    public class FireSpell : Card, ISpell
     {
-        public NormalSpell(string name, double damage)
+        public FireSpell(string name, double damage)
         {
             Name = name;
             Damage = damage;
-            Type = ElementType.Normal;
+            Type = ElementType.Fire;
         }
 
         public void Utilize()

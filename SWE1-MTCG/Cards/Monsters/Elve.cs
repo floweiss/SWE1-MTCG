@@ -4,7 +4,7 @@ using System.Text;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Enums;
 
-namespace SWE1_MTCG.Cards
+namespace SWE1_MTCG.Cards.Monsters
 {
     public class Elve : Card, IMonster
     {

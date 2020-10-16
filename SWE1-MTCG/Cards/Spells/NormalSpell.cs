@@ -4,15 +4,15 @@ using System.Text;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Enums;
 
-namespace SWE1_MTCG.Cards
+namespace SWE1_MTCG.Cards.Spells
 {
-    public class WaterSpell : Card, ISpell
+    public class NormalSpell : Card, ISpell
     {
-        public WaterSpell(string name, double damage)
+        public NormalSpell(string name, double damage)
         {
             Name = name;
             Damage = damage;
-            Type = ElementType.Water;
+            Type = ElementType.Normal;
         }
 
         public void Utilize()

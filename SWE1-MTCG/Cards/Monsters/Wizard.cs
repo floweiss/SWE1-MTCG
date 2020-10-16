@@ -4,11 +4,11 @@ using System.Text;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Enums;
 
-namespace SWE1_MTCG.Cards
+namespace SWE1_MTCG.Cards.Monsters
 {
-    public class Goblin : Card, IMonster
+    public class Wizard : Card, IMonster
     {
-        public Goblin(string name, double damage, ElementType type)
+        public Wizard(string name, double damage, ElementType type)
         {
             Name = name;
             Damage = damage;
@@ -20,9 +20,9 @@ namespace SWE1_MTCG.Cards
             throw new NotImplementedException();
         }
 
-        public bool Afraid(Card card)
+        public bool ControlOrc(Card card)
         {
-            return card is Dragon;
+            return card is Orc;
         }
     }
 }

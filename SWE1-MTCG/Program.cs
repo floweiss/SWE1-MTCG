@@ -1,5 +1,6 @@
 ﻿using System;
 using SWE1_MTCG.Cards;
+using SWE1_MTCG.Cards.Monsters;
 using SWE1_MTCG.Enums;
 
 namespace SWE1_MTCG
