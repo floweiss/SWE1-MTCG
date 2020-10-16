@@ -21,7 +21,7 @@ namespace SWE1_MTCG.Test
             CardStack stack = new CardStack();
 
             // Act
-            stack.GetPackage();
+            stack.AddPackage();
 
             // Assert
             Assert.IsNotNull(stack.CardCollection);
@@ -36,10 +36,10 @@ namespace SWE1_MTCG.Test
 
             // Act
             // Get 5 cards 4 times
-            stack.GetPackage();
-            stack.GetPackage();
-            stack.GetPackage();
-            stack.GetPackage();
+            stack.AddPackage();
+            stack.AddPackage();
+            stack.AddPackage();
+            stack.AddPackage();
 
             // Assert
             Assert.AreEqual(20, stack.CardCollection.Count);
@@ -52,7 +52,7 @@ namespace SWE1_MTCG.Test
             CardStack stack = new CardStack();
 
             // Act
-            stack.GetPackage();
+            stack.AddPackage();
 
             // Assert
             Assert.AreEqual("Gandalf",stack.CardCollection[0].Name);
@@ -66,8 +66,8 @@ namespace SWE1_MTCG.Test
             CardDeck deck = new CardDeck();
 
             // Act
-            stack.GetPackage();
-            stack.GetPackage();
+            stack.AddPackage();
+            stack.AddPackage();
             deck.AddCard(stack.CardCollection[0]);
             deck.AddCard(stack.CardCollection[1]);
             deck.AddCard(stack.CardCollection[2]);
@@ -88,7 +88,7 @@ namespace SWE1_MTCG.Test
             CardDeck deck = new CardDeck();
 
             // Act
-            stack.GetPackage();
+            stack.AddPackage();
             deck.AddCard(stack.CardCollection[0]);
             deck.AddCard(stack.CardCollection[1]);
             deck.AddCard(stack.CardCollection[2]);

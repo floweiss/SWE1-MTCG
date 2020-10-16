@@ -21,6 +21,36 @@ namespace SWE1_MTCG.Cards
             }
         }
 
+        public void AddCardByName(CardStack stack, string cardName)
+        {
+            foreach (var card in stack.CardCollection)
+            {
+                if (card.Name == cardName)
+                {
+                    AddCard(card);
+                }
+                else
+                {
+                    Console.WriteLine("This card is not in your stack!");
+                }
+            }
+        }
+
+        public void RemoveCardByName(string cardName)
+        {
+            foreach (var card in CardCollection)
+            {
+                if (card.Name == cardName)
+                {
+                    RemoveCard(card);
+                }
+                else
+                {
+                    Console.WriteLine("You want to remove a card that is not in your deck!");
+                }
+            }
+        }
+
         public Card GetRandomCard()
         {
             Random rnd = new Random();

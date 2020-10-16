@@ -26,7 +26,22 @@ namespace SWE1_MTCG.Cards
             CardCollection.Remove(removedCard);
         }
 
-        public void GetPackage()
+        public void RemoveCardByName(string cardName)
+        {
+            foreach (var card in CardCollection)
+            {
+                if (card.Name == cardName)
+                {
+                    RemoveCard(card);
+                }
+                else
+                {
+                    Console.WriteLine("The card you want to remove is not in your stack!");
+                }
+            }
+        }
+
+        public void AddPackage()
         {
             CardPackage pack = new CardPackage();
             foreach (var card in pack.CardCollection)
