@@ -15,14 +15,9 @@ namespace SWE1_MTCG.Cards.Monsters
             Type = type;
         }
 
-        public void Attack()
+        public bool EvadeAttackWhen(Card card)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool EvadeAttack(Card card)
-        {
-            if (this.Type == ElementType.Fire)
+            if (Type == ElementType.Fire)
             {
                 return card is Dragon;
             }
@@ -30,6 +25,11 @@ namespace SWE1_MTCG.Cards.Monsters
             {
                 return false;
             }
+        }
+
+        public bool CompareDamage(double damage)
+        {
+            return Damage > damage;
         }
     }
 }

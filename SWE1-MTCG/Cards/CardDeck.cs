@@ -9,9 +9,13 @@ namespace SWE1_MTCG.Cards
 {
     public class CardDeck : CardStack
     {
-        public override void AddCard(Card addedCard)
+        public void AddCard(Card addedCard, bool inBattle = false)
         {
             if (CardCollection.Count < 4)
+            {
+                CardCollection.Add(addedCard);
+            }
+            else if (inBattle)
             {
                 CardCollection.Add(addedCard);
             }
@@ -29,14 +33,10 @@ namespace SWE1_MTCG.Cards
                 {
                     AddCard(card);
                 }
-                else
-                {
-                    Console.WriteLine("This card is not in your stack!");
-                }
             }
         }
 
-        public void RemoveCardByName(string cardName)
+        /*public void RemoveCardByName(string cardName)
         {
             foreach (var card in CardCollection)
             {
@@ -49,7 +49,7 @@ namespace SWE1_MTCG.Cards
                     Console.WriteLine("You want to remove a card that is not in your deck!");
                 }
             }
-        }
+        }*/
 
         public Card GetRandomCard()
         {

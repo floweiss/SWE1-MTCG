@@ -15,9 +15,9 @@ namespace SWE1_MTCG.Cards.Monsters
             Type = type;
         }
 
-        public void Attack()
+        public bool CompareDamage(double damage)
         {
-            throw new NotImplementedException();
+            return Damage > damage;
         }
     }
 }

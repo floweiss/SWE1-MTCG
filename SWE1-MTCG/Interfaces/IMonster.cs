@@ -6,6 +6,6 @@ namespace SWE1_MTCG.Interfaces
 {
     public interface IMonster
     {
-        public void Attack();
+        public bool CompareDamage(double damage);
     }
 }

@@ -16,14 +16,14 @@ namespace SWE1_MTCG.Cards.Monsters
             Type = type;
         }
 
-        public void Attack()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Drown(Card card)
+        public bool DrownsWhen(Card card)
         {
             return card is WaterSpell;
+        }
+
+        public bool CompareDamage(double damage)
+        {
+            return Damage > damage;
         }
     }
 }

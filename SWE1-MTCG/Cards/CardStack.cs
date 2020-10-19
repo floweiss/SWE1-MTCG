@@ -16,7 +16,7 @@ namespace SWE1_MTCG.Cards
             CardCollection = new List<Card>();
         }
 
-        public virtual void AddCard(Card addedCard)
+        public void AddCard(Card addedCard)
         {
             CardCollection.Add(addedCard);
         }

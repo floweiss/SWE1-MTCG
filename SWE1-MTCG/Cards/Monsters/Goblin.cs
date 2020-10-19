@@ -15,14 +15,14 @@ namespace SWE1_MTCG.Cards.Monsters
             Type = type;
         }
 
-        public void Attack()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Afraid(Card card)
+        public bool AfraidOf(Card card)
         {
             return card is Dragon;
+        }
+
+        public bool CompareDamage(double damage)
+        {
+            return Damage > damage;
         }
     }
 }

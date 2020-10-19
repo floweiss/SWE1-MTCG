@@ -15,9 +15,9 @@ namespace SWE1_MTCG.Cards.Spells
             Type = ElementType.Water;
         }
 
-        public void Utilize()
+        public bool CompareDamage(double damage)
         {
-            throw new NotImplementedException();
+            return Damage > damage;
         }
     }
 }

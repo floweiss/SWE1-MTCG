@@ -15,14 +15,14 @@ namespace SWE1_MTCG.Cards.Monsters
             Type = type;
         }
 
-        public void Attack()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ControlOrc(Card card)
+        public bool CanControl(Card card)
         {
             return card is Orc;
+        }
+
+        public bool CompareDamage(double damage)
+        {
+            return Damage > damage;
         }
     }
 }

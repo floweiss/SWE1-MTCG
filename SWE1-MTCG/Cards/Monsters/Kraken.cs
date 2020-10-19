@@ -15,14 +15,14 @@ namespace SWE1_MTCG.Cards.Monsters
             Type = type;
         }
 
-        public void Attack()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Immune(Card card)
+        public bool ImmuneTo(Card card)
         {
             return card is ISpell;
+        }
+
+        public bool CompareDamage(double damage)
+        {
+            return Damage > damage;
         }
     }
 }

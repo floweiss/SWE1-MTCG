@@ -15,9 +15,9 @@ namespace SWE1_MTCG.Cards.Spells
             Type = ElementType.Normal;
         }
 
-        public void Utilize()
+        public bool CompareDamage(double damage)
         {
-            throw new NotImplementedException();
+            return Damage > damage;
         }
     }
 }
