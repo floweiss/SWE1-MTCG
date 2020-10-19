@@ -21,7 +21,7 @@ namespace SWE1_MTCG.Test
             Card orc = new Orc("Burul", 80, ElementType.Normal);
 
             // Act
-            bool controlsOrc = ((Wizard)wizard).ControlOrc(orc);
+            bool controlsOrc = ((Wizard)wizard).CanControl(orc);
 
             // Assert
             Assert.True(controlsOrc);
@@ -33,7 +33,7 @@ namespace SWE1_MTCG.Test
             Card fireElve = new Elve("Erlan Erhice", 50, ElementType.Fire);
             Card waterDragon = new Dragon("Balrog", 150, ElementType.Water);
 
-            bool evadesAttack = ((Elve)fireElve).EvadeAttack(waterDragon);
+            bool evadesAttack = ((Elve)fireElve).EvadeAttackWhen(waterDragon);
 
             Assert.True(evadesAttack);
         }
@@ -44,7 +44,7 @@ namespace SWE1_MTCG.Test
             Card normalElve = new Elve("Grimli Gohan", 60, ElementType.Normal);
             Card waterDragon = new Dragon("Smaug", 180, ElementType.Water);
 
-            bool evadesAttack = ((Elve)normalElve).EvadeAttack(waterDragon);
+            bool evadesAttack = ((Elve)normalElve).EvadeAttackWhen(waterDragon);
 
             Assert.False(evadesAttack);
         }
@@ -55,7 +55,7 @@ namespace SWE1_MTCG.Test
             Card knight = new Knight("Udona the Relentless", 120, ElementType.Normal);
             Card waterSpell = new WaterSpell("Water Whirl", 70);
 
-            bool drowns = ((Knight)knight).Drown(waterSpell);
+            bool drowns = ((Knight)knight).DrownsWhen(waterSpell);
 
             Assert.True(drowns);
         }
@@ -68,9 +68,9 @@ namespace SWE1_MTCG.Test
             Card fireSpell = new FireSpell("Fire Storm", 80);
             Card normalSpell = new NormalSpell("Scorch", 70);
 
-            bool immuneWater = ((Kraken)kraken).Immune(waterSpell);
-            bool immuneFire = ((Kraken)kraken).Immune(fireSpell);
-            bool immuneNormal = ((Kraken)kraken).Immune(normalSpell);
+            bool immuneWater = ((Kraken)kraken).ImmuneTo(waterSpell);
+            bool immuneFire = ((Kraken)kraken).ImmuneTo(fireSpell);
+            bool immuneNormal = ((Kraken)kraken).ImmuneTo(normalSpell);
 
             Assert.True(immuneWater && immuneFire && immuneNormal);
         }
@@ -81,7 +81,7 @@ namespace SWE1_MTCG.Test
             Card goblin = new Goblin("Drevrul", 55, ElementType.Normal);
             Card dragon = new Dragon("Rordirro", 70, ElementType.Fire);
 
-            bool afraid = ((Goblin)goblin).Afraid(dragon);
+            bool afraid = ((Goblin)goblin).AfraidOf(dragon);
 
             Assert.True(afraid);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SWE1_MTCG.Cards;
+using SWE1_MTCG.Services;
 
 namespace SWE1_MTCG
 {
@@ -24,7 +25,11 @@ namespace SWE1_MTCG
 
         public void AddCardsToStack()
         {
-            Stack.AddPackage();
+            if (Coins > 0)
+            {
+                Stack.AddPackage();
+                Coins -= 5;
+            }
         }
 
         public void RemoveCardFromStack(string cardName)
