@@ -23,10 +23,10 @@ namespace SWE1_MTCG.Controller
             switch (battleResult)
             {
                 case 1:
-                    _arenaService.VerifyWinner(arena.User1);
+                    _arenaService.UpdateUserStats(arena.User1, arena.User2);
                     break;
                 case -1:
-                    _arenaService.VerifyWinner(arena.User2);
+                    _arenaService.UpdateUserStats(arena.User2, arena.User1);
                     break;
             }
         }

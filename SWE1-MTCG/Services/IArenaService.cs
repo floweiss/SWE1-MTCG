@@ -9,6 +9,6 @@ namespace SWE1_MTCG.Services
     public interface IArenaService
     {
         int Battle(User user1, User user2);
-        void VerifyWinner(User winner);
+        void UpdateUserStats(User winner, User loser);
     }
 }

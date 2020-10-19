@@ -72,7 +72,7 @@ namespace SWE1_MTCG.Services
             }
         }
 
-        public void VerifyWinner(User winner)
+        public void UpdateUserStats(User winner, User loser)
         {
             throw new NotImplementedException();
         }
