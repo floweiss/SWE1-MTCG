@@ -15,9 +15,9 @@ namespace SWE1_MTCG.Cards.Spells
             Type = ElementType.Water;
         }
 
-        public bool CompareDamage(double damage)
+        public override bool CompareDamage(double damage)
         {
-            return Damage > damage;
+            return Damage >= damage;
         }
     }
 }

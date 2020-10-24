@@ -73,7 +73,7 @@ namespace SWE1_MTCG.Test
             _user1.AddCardToDeck("Balrog");
             _user1.AddCardToDeck("Water Whirl");
 
-            _user2.AddCardToDeck("Gandalf");
+            _user2.AddCardToDeck("Erlan Erhice");
             _user2.AddCardToDeck("Burul");
             _user2.AddCardToDeck("Erlan Erhice");
             _user2.AddCardToDeck("Water Whirl");

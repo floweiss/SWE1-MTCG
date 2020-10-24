@@ -15,9 +15,9 @@ namespace SWE1_MTCG.Cards.Spells
             Type = ElementType.Normal;
         }
 
-        public bool CompareDamage(double damage)
+        public override bool CompareDamage(double damage)
         {
-            return Damage > damage;
+            return Damage >= damage;
         }
     }
 }

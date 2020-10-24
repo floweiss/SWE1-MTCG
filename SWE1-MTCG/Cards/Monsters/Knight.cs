@@ -21,9 +21,9 @@ namespace SWE1_MTCG.Cards.Monsters
             return card is WaterSpell;
         }
 
-        public bool CompareDamage(double damage)
+        public override bool CompareDamage(double damage)
         {
-            return Damage > damage;
+            return Damage >= damage;
         }
     }
 }
