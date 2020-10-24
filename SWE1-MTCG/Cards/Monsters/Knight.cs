@@ -9,8 +9,9 @@ namespace SWE1_MTCG.Cards.Monsters
 {
     public class Knight : Card, IMonster
     {
-        public Knight(string name, double damage, ElementType type)
+        public Knight(string id, string name, double damage, ElementType type)
         {
+            ID = id;
             Name = name;
             Damage = damage;
             Type = type;

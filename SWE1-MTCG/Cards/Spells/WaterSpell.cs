@@ -8,8 +8,9 @@ namespace SWE1_MTCG.Cards.Spells
 {
     public class WaterSpell : Card, ISpell
     {
-        public WaterSpell(string name, double damage)
+        public WaterSpell(string id, string name, double damage)
         {
+            ID = id;
             Name = name;
             Damage = damage;
             Type = ElementType.Water;

@@ -8,8 +8,9 @@ namespace SWE1_MTCG.Cards.Spells
 {
     public class FireSpell : Card, ISpell
     {
-        public FireSpell(string name, double damage)
+        public FireSpell(string id, string name, double damage)
         {
+            ID = id;
             Name = name;
             Damage = damage;
             Type = ElementType.Fire;

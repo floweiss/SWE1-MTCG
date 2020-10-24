@@ -8,8 +8,9 @@ namespace SWE1_MTCG.Cards.Monsters
 {
     public class Goblin : Card, IMonster
     {
-        public Goblin(string name, double damage, ElementType type)
+        public Goblin(string id, string name, double damage, ElementType type)
         {
+            ID = id;
             Name = name;
             Damage = damage;
             Type = type;

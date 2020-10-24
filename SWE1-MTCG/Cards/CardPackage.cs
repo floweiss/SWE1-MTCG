@@ -32,11 +32,11 @@ namespace SWE1_MTCG.Cards
         {
             // ToDo: Randomize Cards
             CardCollection.AddRange(new List<Card>{
-                new Wizard("Gandalf", 100, ElementType.Normal),
-                new Orc("Burul", 80, ElementType.Normal),
-                new Elve("Erlan Erhice", 50, ElementType.Fire),
-                new Dragon("Balrog", 150, ElementType.Water),
-                new WaterSpell("Water Whirl", 70)
+                new Wizard("wizgan","Gandalf", 100, ElementType.Normal),
+                new Orc("orcbur","Burul", 80, ElementType.Normal),
+                new Elve("elverl","Erlan Erhice", 50, ElementType.Fire),
+                new Dragon("drabal","Balrog", 150, ElementType.Water),
+                new WaterSpell("watwat","Water Whirl", 70)
             });
         }
     }

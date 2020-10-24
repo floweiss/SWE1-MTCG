@@ -32,8 +32,8 @@ namespace SWE1_MTCG.Test
         public void TestNormalIsEffectiveAgainstWater()
         {
             // Arrange
-            Card wizard = new Wizard("Gandalf", 100, ElementType.Normal);
-            Card waterOrc = new Orc("Burul", 80, ElementType.Water);
+            Card wizard = new Wizard("wizgan","Gandalf", 100, ElementType.Normal);
+            Card waterOrc = new Orc("orcbur","Burul", 80, ElementType.Water);
 
             // Act
             double normalIsEffectiveAgainstWater = _elementService.CompareElements(wizard.Type, waterOrc.Type);
@@ -46,8 +46,8 @@ namespace SWE1_MTCG.Test
         public void TestWaterIsEffectiveAgainstFire()
         {
             // Arrange
-            Card fireElve = new Elve("Erlan Erhice", 70, ElementType.Water);
-            Card waterDragon = new Dragon("Balrog", 130, ElementType.Fire);
+            Card fireElve = new Elve("elverl","Erlan Erhice", 70, ElementType.Water);
+            Card waterDragon = new Dragon("drabal","Balrog", 130, ElementType.Fire);
 
             double waterIsEffectiveAgainstFire = _elementService.CompareElements(fireElve.Type, waterDragon.Type);
 
@@ -59,8 +59,8 @@ namespace SWE1_MTCG.Test
         public void TestNormalIsNotEffectiveAgainstFire()
         {
             // Arrange
-            Card wizard = new Wizard("Gandalf", 100, ElementType.Normal);
-            Card fireDragon = new Dragon("Balrog", 130, ElementType.Fire);
+            Card wizard = new Wizard("wizgan","Gandalf", 100, ElementType.Normal);
+            Card fireDragon = new Dragon("drabal","Balrog", 130, ElementType.Fire);
 
             double normalIsNotEffectiveAgainstFire = _elementService.CompareElements(wizard.Type, fireDragon.Type);
 
@@ -72,8 +72,8 @@ namespace SWE1_MTCG.Test
         public void TestWaterNoEffectOnWater()
         {
             // Arrange
-            Card waterSpell = new WaterSpell("Water Whirl", 70);
-            Card waterDragon = new Dragon("Balrog", 120, ElementType.Water);
+            Card waterSpell = new WaterSpell("watwat","Water Whirl", 70);
+            Card waterDragon = new Dragon("drabal","Balrog", 120, ElementType.Water);
 
             double normalIsNotEffectiveAgainstFire = _elementService.CompareElements(waterSpell.Type, waterDragon.Type);
 

@@ -8,8 +8,9 @@ namespace SWE1_MTCG.Cards.Monsters
 {
     public class Dragon : Card, IMonster
     {
-        public Dragon(string name, double damage, ElementType type)
+        public Dragon(string id, string name, double damage, ElementType type)
         {
+            ID = id;
             Name = name;
             Damage = damage;
             Type = type;

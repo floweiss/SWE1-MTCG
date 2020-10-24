@@ -8,8 +8,9 @@ namespace SWE1_MTCG.Cards.Monsters
 {
     public class Kraken : Card, IMonster
     {
-        public Kraken(string name, double damage, ElementType type)
+        public Kraken(string id, string name, double damage, ElementType type)
         {
+            ID = id;
             Name = name;
             Damage = damage;
             Type = type;

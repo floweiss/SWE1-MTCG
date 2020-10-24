@@ -9,8 +9,8 @@ namespace SWE1_MTCG
     {
         public static void Main(string[] args)
         {
-            Card dragon = new Dragon("Balrog", 180, ElementType.Normal);
-            Console.WriteLine(dragon.Name + " of the ElementType " + dragon.Type + " has a Damage value of " + dragon.Damage + ", which makes him very powerful!");
+            Card dragon = new Dragon("drabal","Balrog", 180, ElementType.Normal);
+            Console.WriteLine(dragon.ID + ": " + dragon.Name + " of the ElementType " + dragon.Type + " has a Damage value of " + dragon.Damage + ", which makes him very powerful!");
         }
     }
 }
