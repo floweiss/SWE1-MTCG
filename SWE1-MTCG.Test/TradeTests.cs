@@ -32,8 +32,11 @@ namespace SWE1_MTCG.Test
         public void TestNotAddingInvalidTrade()
         {
             Trade trade = new Trade(new User("testUser", "geheim"), null, null, 0);
+
             _tradeService.Setup(s => s.AddTrade(trade)).Returns(true);
+
             _tradeController.AddTrade(trade);
+
             _tradeService.Verify(s => s.AddTrade(trade), Times.Never);
         }
 

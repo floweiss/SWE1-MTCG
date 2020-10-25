@@ -34,10 +34,8 @@ namespace SWE1_MTCG.Test
         {
             _userService.Setup(s => s.IsRegistered(_user)).Returns(false);
 
-            // Act
             bool isLoggedIn = _userController.Login(_user);
 
-            // Assert
             Assert.False(isLoggedIn);
         }
 
