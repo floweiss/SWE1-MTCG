@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CardTests\**" />
+    <EmbeddedResource Remove="CardTests\**" />
+    <None Remove="CardTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
@@ -15,10 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SWE1-MTCG\SWE1-MTCG.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CardTests\" />
   </ItemGroup>
 
 </Project>
