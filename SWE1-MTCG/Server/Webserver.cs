@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SWE1_MTCG.Api;
 
 namespace SWE1_MTCG.Server
 {
@@ -66,12 +67,23 @@ namespace SWE1_MTCG.Server
                 } while (networkStream.DataAvailable);
 
                 request = new RequestContext(Encoding.ASCII.GetString(memoryStream.ToArray(), 0, (int) memoryStream.Length));
-
-                Console.WriteLine(Encoding.ASCII.GetString(memoryStream.ToArray(), 0, (int)memoryStream.Length));
             }
-            Console.WriteLine("Method: "+request.HttpMethod);
+            /*Console.WriteLine("Method: "+request.HttpMethod);
             Console.WriteLine("Version: " + request.HttpVersion);
             Console.WriteLine("Resource: " + request.RequestedResource);
+            Console.WriteLine("Content-Length: " + request.ContentLength);
+            foreach (var header in request.CustomHeader)
+            {
+                Console.WriteLine("Header: " + header);
+            }
+            Console.WriteLine("Content: " + request.Content);*/
+
+            if (request.RequestedResource.StartsWith("/messages"))
+            {
+                MessageApi api = new MessageApi(request);
+                string response = api.Interaction();
+                Console.WriteLine(response);
+            }
         }
     }
 }
