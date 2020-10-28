@@ -53,9 +53,9 @@ namespace SWE1_MTCG.Api
                         _request.RequestedResource.EndsWith("messages/"))
                     {
                         string newFile = workingDir + "\\" + messageNumber.ToString() + ".txt";
-                        System.IO.File.WriteAllText(newFile, _request.Content);
+                        File.WriteAllText(newFile, _request.Content);
                         messageNumber++;
-                        System.IO.File.WriteAllText(numberFile, messageNumber.ToString());
+                        File.WriteAllText(numberFile, messageNumber.ToString());
                         return "POST OK - ID: " + (messageNumber-1);
                     }
                     else
@@ -73,7 +73,7 @@ namespace SWE1_MTCG.Api
                             if (!filename.EndsWith("Number.txt"))
                             {
                                 int lastSlash = filename.LastIndexOf('\\');
-                                files = files + filename.Substring(lastSlash+1) + "\n";
+                                files = files + filename.Substring(lastSlash+1) + ": " + File.ReadAllText(filename) + "\n";
                             }
                         }
 
@@ -98,7 +98,7 @@ namespace SWE1_MTCG.Api
                             string filename = workingDir + "\\" + readMessageNumber + ".txt";
                             if (File.Exists(filename))
                             {
-                                return System.IO.File.ReadAllText(filename);
+                                return File.ReadAllText(filename);
                             }
                             else
                             {
@@ -130,7 +130,7 @@ namespace SWE1_MTCG.Api
                         string filenamePut = workingDir + "\\" + readMessageNumberPut + ".txt";
                         if (File.Exists(filenamePut))
                         {
-                            System.IO.File.WriteAllText(filenamePut, _request.Content);
+                            File.WriteAllText(filenamePut, _request.Content);
                             return "PUT OK";
                         }
                         else
@@ -141,6 +141,37 @@ namespace SWE1_MTCG.Api
                     else
                     {
                         return "PUT ERR";
+                    }
+
+                case "DELETE":
+                    if (regex.IsMatch(_request.RequestedResource))
+                    {
+                        string requestedResourceDel;
+                        if (_request.RequestedResource.EndsWith("/"))
+                        {
+                            requestedResourceDel = _request.RequestedResource.Remove(_request.RequestedResource.Length - 1, 1);
+                        }
+                        else
+                        {
+                            requestedResourceDel = _request.RequestedResource;
+                        }
+                        int lastSlashDel = requestedResourceDel.LastIndexOf('/');
+                        string readMessageNumberDel = requestedResourceDel.Substring(lastSlashDel + 1);
+
+                        string filenameDel = workingDir + "\\" + readMessageNumberDel + ".txt";
+                        if (File.Exists(filenameDel))
+                        {
+                            File.Delete(filenameDel);
+                            return "DELETE OK";
+                        }
+                        else
+                        {
+                            return "DELETE ERR";
+                        }
+                    }
+                    else
+                    {
+                        return "DELETE ERR";
                     }
 
                 default:

@@ -30,10 +30,6 @@ namespace SWE1_MTCG.Server
 
         public void Start()
         {
-            /*
-            Console.CancelKeyPress += (sender, e) => Environment.Exit(0);
-            */
-
             _webserver.Start();
             _buffer = new byte[1024];
             while (true)
@@ -53,7 +49,7 @@ namespace SWE1_MTCG.Server
 
         private void InteractionClient(object clientObj)
         {
-            Console.WriteLine("Connected!");
+            Console.WriteLine("Connected with client!");
             TcpClient client = (TcpClient) clientObj;
             NetworkStream networkStream = client.GetStream();
             RequestContext request;
@@ -67,23 +63,14 @@ namespace SWE1_MTCG.Server
                 } while (networkStream.DataAvailable);
 
                 request = new RequestContext(Encoding.ASCII.GetString(memoryStream.ToArray(), 0, (int) memoryStream.Length));
+                Console.WriteLine("Method called: " + request.HttpMethod);
             }
-            /*Console.WriteLine("Method: "+request.HttpMethod);
-            Console.WriteLine("Version: " + request.HttpVersion);
-            Console.WriteLine("Resource: " + request.RequestedResource);
-            Console.WriteLine("Content-Length: " + request.ContentLength);
-            foreach (var header in request.CustomHeader)
-            {
-                Console.WriteLine("Header: " + header);
-            }
-            Console.WriteLine("Content: " + request.Content);*/
 
             byte[] responseBuffer;
             if (request.RequestedResource.StartsWith("/messages"))
             {
                 MessageApi api = new MessageApi(request);
                 string response = api.Interaction();
-                Console.WriteLine(response);
 
                 System.Text.ASCIIEncoding enc = new ASCIIEncoding();
                 responseBuffer = enc.GetBytes(response);
@@ -95,6 +82,9 @@ namespace SWE1_MTCG.Server
                 responseBuffer = enc.GetBytes("Failed!");
                 networkStream.Write(responseBuffer, 0, responseBuffer.Length);
             }
+
+            Console.WriteLine("Client disconnected!\n");
+            client.Close();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System;
+using Microsoft.VisualBasic.FileIO;
 
 namespace SWE1_MTCG.Server
 {
@@ -25,7 +26,7 @@ namespace SWE1_MTCG.Server
             HttpVersion = firstLine[2];
             RequestedResource = firstLine[1];
 
-            if (HttpMethod != "GET")
+            if (HttpMethod != "GET" && HttpMethod != "DELETE")
             {
                 int headerNr = 4;
                 CustomHeader = new List<string>();
