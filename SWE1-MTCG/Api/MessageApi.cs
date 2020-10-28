@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using SWE1_MTCG.Server;
 
 namespace SWE1_MTCG.Api
@@ -44,13 +45,24 @@ namespace SWE1_MTCG.Api
 
 
             // HTTPMethods
+            Regex regex = new Regex(@"^/messages/\d+/?$");
             switch (_request.HttpMethod)
             {
                 case "POST":
-                    string newFile = workingDir + "\\" + messageNumber.ToString() + ".txt";
-                    System.IO.File.WriteAllText(newFile, _request.Content);
-                    messageNumber++;
-                    return "POST OK";
+                    if (_request.RequestedResource.EndsWith("messages") ||
+                        _request.RequestedResource.EndsWith("messages/"))
+                    {
+                        string newFile = workingDir + "\\" + messageNumber.ToString() + ".txt";
+                        System.IO.File.WriteAllText(newFile, _request.Content);
+                        messageNumber++;
+                        System.IO.File.WriteAllText(numberFile, messageNumber.ToString());
+                        return "POST OK - ID: " + (messageNumber-1);
+                    }
+                    else
+                    {
+                        return "POST ERR";
+                    }
+
                 case "GET":
                     if (_request.RequestedResource.EndsWith("messages") ||
                         _request.RequestedResource.EndsWith("messages/"))
@@ -58,9 +70,10 @@ namespace SWE1_MTCG.Api
                         string files = "";
                         foreach (var filename in Directory.GetFiles(workingDir))
                         {
-                            if (filename != "Number.txt")
+                            if (!filename.EndsWith("Number.txt"))
                             {
-                                files = files + filename + "\n";
+                                int lastSlash = filename.LastIndexOf('\\');
+                                files = files + filename.Substring(lastSlash+1) + "\n";
                             }
                         }
 
@@ -68,25 +81,71 @@ namespace SWE1_MTCG.Api
                     }
                     else
                     {
-                        string requestedResource;
-                        if (_request.RequestedResource.EndsWith("/"))
+                        if (regex.IsMatch(_request.RequestedResource))
                         {
-                            requestedResource = _request.RequestedResource.Remove(_request.RequestedResource.Length - 1, 1);
+                            string requestedResource;
+                            if (_request.RequestedResource.EndsWith("/"))
+                            {
+                                requestedResource = _request.RequestedResource.Remove(_request.RequestedResource.Length - 1, 1);
+                            }
+                            else
+                            {
+                                requestedResource = _request.RequestedResource;
+                            }
+                            int lastSlash = requestedResource.LastIndexOf('/');
+                            string readMessageNumber = requestedResource.Substring(lastSlash + 1);
+
+                            string filename = workingDir + "\\" + readMessageNumber + ".txt";
+                            if (File.Exists(filename))
+                            {
+                                return System.IO.File.ReadAllText(filename);
+                            }
+                            else
+                            {
+                                return "GET ERR";
+                            }
                         }
                         else
                         {
-                            requestedResource = _request.RequestedResource;
+                            return "GET ERR";
                         }
-                        string readMessageNumber = requestedResource.Substring(requestedResource.Length-1);
-
-                        return System.IO.File.ReadAllText(workingDir + "\\" + readMessageNumber + ".txt");
+                        
                     }
+
+                case "PUT":
+                    if (regex.IsMatch(_request.RequestedResource))
+                    {
+                        string requestedResourcePut;
+                        if (_request.RequestedResource.EndsWith("/"))
+                        {
+                            requestedResourcePut = _request.RequestedResource.Remove(_request.RequestedResource.Length - 1, 1);
+                        }
+                        else
+                        {
+                            requestedResourcePut = _request.RequestedResource;
+                        }
+                        int lastSlashPut =requestedResourcePut.LastIndexOf('/');
+                        string readMessageNumberPut = requestedResourcePut.Substring(lastSlashPut+1);
+
+                        string filenamePut = workingDir + "\\" + readMessageNumberPut + ".txt";
+                        if (File.Exists(filenamePut))
+                        {
+                            System.IO.File.WriteAllText(filenamePut, _request.Content);
+                            return "PUT OK";
+                        }
+                        else
+                        {
+                            return "PUT ERR";
+                        }
+                    }
+                    else
+                    {
+                        return "PUT ERR";
+                    }
+
                 default:
                     return "Nothing happened";
             }
-
-
-            System.IO.File.WriteAllText(numberFile, messageNumber.ToString());
         }
     }
 }

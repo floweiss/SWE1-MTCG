@@ -78,11 +78,22 @@ namespace SWE1_MTCG.Server
             }
             Console.WriteLine("Content: " + request.Content);*/
 
+            byte[] responseBuffer;
             if (request.RequestedResource.StartsWith("/messages"))
             {
                 MessageApi api = new MessageApi(request);
                 string response = api.Interaction();
                 Console.WriteLine(response);
+
+                System.Text.ASCIIEncoding enc = new ASCIIEncoding();
+                responseBuffer = enc.GetBytes(response);
+                networkStream.Write(responseBuffer, 0, responseBuffer.Length);
+            }
+            else
+            {
+                System.Text.ASCIIEncoding enc = new ASCIIEncoding();
+                responseBuffer = enc.GetBytes("Failed!");
+                networkStream.Write(responseBuffer, 0, responseBuffer.Length);
             }
         }
     }
