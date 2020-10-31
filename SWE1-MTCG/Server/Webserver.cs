@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using SWE1_MTCG.Api;
@@ -67,23 +68,23 @@ namespace SWE1_MTCG.Server
             }
 
             byte[] responseBuffer;
-            if (request.RequestedResource.StartsWith("/messages"))
+            string responseString;
+            Regex regex = new Regex(@"^/messages/?\d*$");
+            if (regex.IsMatch(request.RequestedResource))
             {
                 MessageApi api = new MessageApi(request);
-                string response = api.Interaction();
-
-                System.Text.ASCIIEncoding enc = new ASCIIEncoding();
-                responseBuffer = enc.GetBytes(response);
-                networkStream.Write(responseBuffer, 0, responseBuffer.Length);
+                responseString = api.Interaction();
             }
             else
             {
-                System.Text.ASCIIEncoding enc = new ASCIIEncoding();
-                responseBuffer = enc.GetBytes("Failed!");
-                networkStream.Write(responseBuffer, 0, responseBuffer.Length);
+                responseString = "ERR";
             }
 
+            ResponseContext response = new ResponseContext(request, responseString);
+            using StreamWriter writer = new StreamWriter(networkStream) { AutoFlush = true };
+            client.Client.Send(Encoding.ASCII.GetBytes(response.ResponseToString()));
             Console.WriteLine("Client disconnected!\n");
+
             client.Close();
         }
     }

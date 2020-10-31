@@ -30,13 +30,21 @@ namespace SWE1_MTCG.Api
             string text = null;
             if (File.Exists(numberFile))
             {
-                text = System.IO.File.ReadAllText(numberFile);
+                text = File.ReadAllText(numberFile);
             }
             
             int messageNumber;
             if (text != null)
             {
-                messageNumber = int.Parse(text);
+                try
+                {
+                    messageNumber = int.Parse(text);
+                }
+                catch (Exception e)
+                {
+                    messageNumber = 0;
+                    //throw;
+                }
             }
             else
             {
