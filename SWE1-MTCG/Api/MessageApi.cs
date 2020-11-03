@@ -183,7 +183,7 @@ namespace SWE1_MTCG.Api
                     }
 
                 default:
-                    return "Nothing happened";
+                    return "Method ERR";
             }
         }
     }

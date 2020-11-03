@@ -26,41 +26,42 @@ namespace SWE1_MTCG.Server
             HttpVersion = firstLine[2];
             RequestedResource = firstLine[1];
 
-            if (HttpMethod != "GET" && HttpMethod != "DELETE")
+            if (MethodIsAllowed())
             {
-                int headerNr = 4;
-                CustomHeader = new List<string>();
-                while (headerNr < spliced.Length)
+                if (HttpMethod != "GET" && HttpMethod != "DELETE")
                 {
-                    if (!spliced[headerNr].StartsWith("Content-Length:"))
+                    int headerNr = 4;
+                    CustomHeader = new List<string>();
+                    while (headerNr < spliced.Length)
                     {
-                        CustomHeader.Add(spliced[headerNr]);
+                        if (!spliced[headerNr].StartsWith("Content-Length:"))
+                        {
+                            CustomHeader.Add(spliced[headerNr]);
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                        headerNr++;
                     }
-                    else
+
+                    ContentLength = int.Parse(spliced[headerNr].Split(' ')[1]);
+
+                    headerNr += 2;
+                    Content = spliced[headerNr];
+                    for (int j = headerNr+1; j < spliced.Length; j++)
                     {
-                        break;
+                        Content += spliced[j];
                     }
-                    headerNr++;
-                }
-
-                ContentLength = int.Parse(spliced[headerNr].Split(' ')[1]);
-
-                headerNr += 2;
-                Content = spliced[headerNr];
-                for (int j = headerNr; j < spliced.Length; j++)
-                {
-                    Content += spliced[j];
                 }
             }
+        }
 
-            /*
-            int firstSpace = request.IndexOf(' ');
-            HttpMethod = request.Remove(firstSpace, request.Length-firstSpace);
-
-            int firstH = request.IndexOf('H');
-            HttpVersion = request.Remove(0, firstH);
-            int firstReturn = HttpVersion.IndexOf('\r');
-            HttpVersion = HttpVersion.Remove(firstReturn);*/
+        public bool MethodIsAllowed()
+        {
+            return ((HttpMethod == "GET") || (HttpMethod == "POST") || (HttpMethod == "PUT") ||
+                    (HttpMethod == "DELETE"));
         }
     }
 }

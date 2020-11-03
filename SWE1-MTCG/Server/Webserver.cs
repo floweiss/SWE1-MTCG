@@ -77,7 +77,7 @@ namespace SWE1_MTCG.Server
             }
             else
             {
-                responseString = "ERR";
+                responseString = " Resource ERR";
             }
 
             ResponseContext response = new ResponseContext(request, responseString);

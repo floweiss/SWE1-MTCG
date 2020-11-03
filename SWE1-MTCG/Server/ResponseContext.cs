@@ -28,6 +28,11 @@ namespace SWE1_MTCG.Server
                 StatusCode = 404;
                 StatusString = "Not Found";
             }
+            else if (Content.StartsWith("POST OK") || Content == "PUT OK")
+            {
+                StatusCode = 201;
+                StatusString = "Created";
+            }
             else
             {
                 StatusCode = 200;
