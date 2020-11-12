@@ -9,9 +9,11 @@ namespace SWE1_MTCG.Server
         public string HttpVersion { get; private set; }
         public int StatusCode { get; private set; }
         public string StatusString { get; private set; }
+        public string Host { get; protected set; }
         public string ContentType { get; private set; }
         public int ContentLength { get; protected set; }
         public string Content { get; protected set; }
+
         public ResponseContext(RequestContext request, string content)
         {
             HttpVersion = request.HttpVersion;
@@ -28,6 +30,11 @@ namespace SWE1_MTCG.Server
                 StatusCode = 404;
                 StatusString = "Not Found";
             }
+            else if (Content.Equals("Method ERR") || Content.Equals("Resource ERR"))
+            {
+                StatusCode = 501;
+                StatusString = "Not Implemented";
+            }
             else if (Content.StartsWith("POST OK") || Content == "PUT OK")
             {
                 StatusCode = 201;
@@ -38,6 +45,13 @@ namespace SWE1_MTCG.Server
                 StatusCode = 200;
                 StatusString = "OK";
             }
+
+            Host = "localhost:11000";
+            if (Array.Exists(request.CustomHeader.ToArray(), element => element.StartsWith("Host:", StringComparison.Ordinal)))
+            {
+                Host = Array.Find(request.CustomHeader.ToArray(), element => element.StartsWith("Host:", StringComparison.Ordinal));
+                Host = Host.Substring(6, Host.Length - 6);
+            }
         }
 
         public string ResponseToString()
@@ -45,7 +59,7 @@ namespace SWE1_MTCG.Server
             string response = "";
 
             response += HttpVersion + " " + StatusCode + " " + StatusString + "\n";
-            response += "Via: " + HttpVersion + " localhost:11000\n";
+            response += "Via: " + HttpVersion + " " + Host + "\n";
             response += "Content Type: " + ContentType + "\n";
             response += "Content Length: " + ContentLength.ToString() + "\n\n";
             response += Content;

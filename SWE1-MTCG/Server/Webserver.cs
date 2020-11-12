@@ -67,17 +67,16 @@ namespace SWE1_MTCG.Server
                 Console.WriteLine("Method called: " + request.HttpMethod);
             }
 
-            byte[] responseBuffer;
             string responseString;
-            Regex regex = new Regex(@"^/messages/?\d*$");
-            if (regex.IsMatch(request.RequestedResource))
+            Regex messageRegex = new Regex(@"^/messages/?\d*$");
+            if (messageRegex.IsMatch(request.RequestedResource))
             {
-                MessageApi api = new MessageApi(request);
+                MessageApi api = new MessageApi(request, messageRegex);
                 responseString = api.Interaction();
             }
             else
             {
-                responseString = " Resource ERR";
+                responseString = "Resource ERR";
             }
 
             ResponseContext response = new ResponseContext(request, responseString);

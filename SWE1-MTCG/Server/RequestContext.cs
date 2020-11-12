@@ -26,26 +26,27 @@ namespace SWE1_MTCG.Server
             HttpVersion = firstLine[2];
             RequestedResource = firstLine[1];
 
+            
+            int headerNr = 2; 
+            CustomHeader = new List<string>(); 
+            while (headerNr < spliced.Length)
+            {
+                if (!spliced[headerNr].StartsWith("Content-Length:"))
+                {
+                    CustomHeader.Add(spliced[headerNr]);
+                }
+                else
+                { 
+                    break;
+                }
+
+                headerNr++;
+            }
+
             if (MethodIsAllowed())
             {
                 if (HttpMethod != "GET" && HttpMethod != "DELETE")
                 {
-                    int headerNr = 4;
-                    CustomHeader = new List<string>();
-                    while (headerNr < spliced.Length)
-                    {
-                        if (!spliced[headerNr].StartsWith("Content-Length:"))
-                        {
-                            CustomHeader.Add(spliced[headerNr]);
-                        }
-                        else
-                        {
-                            break;
-                        }
-
-                        headerNr++;
-                    }
-
                     ContentLength = int.Parse(spliced[headerNr].Split(' ')[1]);
 
                     headerNr += 2;
