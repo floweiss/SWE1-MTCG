@@ -16,11 +16,9 @@ namespace SWE1_MTCG.Server
         private IPAddress _ipAddress = IPAddress.Loopback;
         private int _port = 11000;
         private byte[] _buffer;
-        private IApiService _apiService;
 
         public Webserver(IApiService apiService)
         {
-            _apiService = apiService;
             try
             {
                 _webserver = new TcpListener(_ipAddress, _port);
@@ -70,7 +68,8 @@ namespace SWE1_MTCG.Server
             }
 
             string responseString;
-            IApi api = _apiService.GetApi(request);
+            IApiService apiService = new ApiService();
+            IApi api = apiService.GetApi(request);
             if (api != null)
             {
                 responseString = api.Interaction();
