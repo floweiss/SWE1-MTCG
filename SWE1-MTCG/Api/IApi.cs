@@ -7,10 +7,10 @@ namespace SWE1_MTCG.Api
 {
     public interface IApi
     {
-        String Interaction();
-        String PostMethod(String workingDir);
-        String GetMethod(String workingDir);
-        String PutMethod(String workingDir);
-        String DeleteMethod(String workingDir);
+        string Interaction();
+        string PostMethod(string workingDir);
+        string GetMethod(string workingDir);
+        string PutMethod(string workingDir);
+        string DeleteMethod(string workingDir);
     }
 }

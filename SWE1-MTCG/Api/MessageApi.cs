@@ -28,7 +28,6 @@ namespace SWE1_MTCG.Api
                 Directory.CreateDirectory(workingDir);
             }
 
-
             // HTTPMethods
             switch (_request.HttpMethod)
             {
@@ -49,66 +48,68 @@ namespace SWE1_MTCG.Api
             }
         }
 
-        public String PostMethod(String workingDir)
+        public string PostMethod(string workingDir)
         {
             if (_request.RequestedResource.EndsWith("messages") ||
                 _request.RequestedResource.EndsWith("messages/"))
             {
                 // FileNumber
-                Mutex mut = new Mutex();
-                mut.WaitOne();
-                string numberFile = workingDir + "\\Number.txt";
-                string text = null;
-                if (File.Exists(numberFile))
-                {
-                    text = File.ReadAllText(numberFile);
-                }
-
                 int messageNumber;
-                if (text != null)
+                lock (this)
                 {
-                    try
+                    string numberFile = workingDir + "\\Number.txt";
+                    string text = null;
+                    if (File.Exists(numberFile))
                     {
-                        messageNumber = int.Parse(text);
+                        text = File.ReadAllText(numberFile);
                     }
-                    catch (Exception e)
+
+                    if (text != null)
+                    {
+                        try
+                        {
+                            messageNumber = int.Parse(text);
+                        }
+                        catch (Exception e)
+                        {
+                            messageNumber = 0;
+                            //throw;
+                        }
+                    }
+                    else
                     {
                         messageNumber = 0;
-                        //throw;
                     }
-                }
-                else
-                {
-                    messageNumber = 0;
+
+                    string newFile = workingDir + "\\" + messageNumber.ToString() + ".txt";
+                    File.WriteAllText(newFile, _request.Content);
+                    messageNumber++;
+                    File.WriteAllText(numberFile, messageNumber.ToString());
                 }
 
-                string newFile = workingDir + "\\" + messageNumber.ToString() + ".txt";
-                File.WriteAllText(newFile, _request.Content);
-                messageNumber++;
-                File.WriteAllText(numberFile, messageNumber.ToString());
-                mut.ReleaseMutex();
                 return "POST OK - ID: " + (messageNumber - 1);
             }
             return "POST ERR";
         }
 
-        public String GetMethod(String workingDir)
+        public string GetMethod(string workingDir)
         {
             if (_request.RequestedResource.EndsWith("messages") ||
                         _request.RequestedResource.EndsWith("messages/"))
             {
                 string files = "";
-                Mutex mut = new Mutex();
-                mut.WaitOne();
-                foreach (var filename in Directory.GetFiles(workingDir))
+                lock (this)
                 {
-                    if (!filename.EndsWith("Number.txt"))
+                    foreach (var filename in Directory.GetFiles(workingDir))
                     {
-                        int lastSlash = filename.LastIndexOf('\\');
-                        files = files + filename.Substring(lastSlash + 1) + ": " + File.ReadAllText(filename) + "\n";
+                        if (!filename.EndsWith("Number.txt"))
+                        {
+                            int lastSlash = filename.LastIndexOf('\\');
+                            files = files + filename.Substring(lastSlash + 1) + ": " + File.ReadAllText(filename) +
+                                    "\n";
+                        }
                     }
                 }
-                mut.ReleaseMutex();
 
                 return files;
             }
@@ -126,21 +127,21 @@ namespace SWE1_MTCG.Api
                 int lastSlash = requestedResource.LastIndexOf('/');
                 string readMessageNumber = requestedResource.Substring(lastSlash + 1);
 
-                Mutex mut = new Mutex();
-                mut.WaitOne();
-                string filename = workingDir + "\\" + readMessageNumber + ".txt";
-                if (File.Exists(filename))
+                lock (this)
                 {
-                    mut.ReleaseMutex();
-                    return File.ReadAllText(filename);
+                    string filename = workingDir + "\\" + readMessageNumber + ".txt";
+                    if (File.Exists(filename))
+                    {
+                        return File.ReadAllText(filename);
+                    }
                 }
-                mut.ReleaseMutex();
+
                 return "GET ERR";
             }
             return "GET ERR";
         }
 
-        public String PutMethod(String workingDir)
+        public string PutMethod(string workingDir)
         {
             if (_regex.IsMatch(_request.RequestedResource))
             {
@@ -156,22 +157,21 @@ namespace SWE1_MTCG.Api
                 int lastSlashPut = requestedResourcePut.LastIndexOf('/');
                 string readMessageNumberPut = requestedResourcePut.Substring(lastSlashPut + 1);
 
-                Mutex mut = new Mutex();
-                mut.WaitOne();
-                string filenamePut = workingDir + "\\" + readMessageNumberPut + ".txt";
-                if (File.Exists(filenamePut))
-                {
-                    File.WriteAllText(filenamePut, _request.Content);
-                    mut.ReleaseMutex();
-                    return "PUT OK";
+                lock(this) {
+                    string filenamePut = workingDir + "\\" + readMessageNumberPut + ".txt";
+                    if (File.Exists(filenamePut))
+                    {
+                        File.WriteAllText(filenamePut, _request.Content);
+                        return "PUT OK";
+                    }
                 }
-                mut.ReleaseMutex();
+
                 return "PUT ERR";
             }
             return "PUT ERR";
         }
 
-        public String DeleteMethod(String workingDir)
+        public string DeleteMethod(string workingDir)
         {
             if (_regex.IsMatch(_request.RequestedResource))
             {
@@ -187,16 +187,16 @@ namespace SWE1_MTCG.Api
                 int lastSlashDel = requestedResourceDel.LastIndexOf('/');
                 string readMessageNumberDel = requestedResourceDel.Substring(lastSlashDel + 1);
 
-                Mutex mut = new Mutex();
-                mut.WaitOne();
-                string filenameDel = workingDir + "\\" + readMessageNumberDel + ".txt";
-                if (File.Exists(filenameDel))
+                lock (this)
                 {
-                    File.Delete(filenameDel);
-                    mut.ReleaseMutex();
-                    return "DELETE OK";
+                    string filenameDel = workingDir + "\\" + readMessageNumberDel + ".txt";
+                    if (File.Exists(filenameDel))
+                    {
+                        File.Delete(filenameDel);
+                        return "DELETE OK";
+                    }
                 }
-                mut.ReleaseMutex();
+
                 return "DELETE ERR";
             }
             return "DELETE ERR";

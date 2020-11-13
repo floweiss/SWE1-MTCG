@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SWE1_MTCG.Api;
 using SWE1_MTCG.Server;
 
 namespace SWE1_MTCG
@@ -14,7 +15,8 @@ namespace SWE1_MTCG
     {
         public static void Main(string[] args)
         {
-            Webserver server = new Webserver();
+            ApiService apiService = new ApiService();
+            Webserver server = new Webserver(apiService);
             server.Start();
         }
     }

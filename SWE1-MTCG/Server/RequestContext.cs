@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System;
+using System.Linq;
 using Microsoft.VisualBasic.FileIO;
 
 namespace SWE1_MTCG.Server
@@ -33,7 +34,10 @@ namespace SWE1_MTCG.Server
             {
                 if (!spliced[headerNr].StartsWith("Content-Length:"))
                 {
-                    CustomHeader.Add(spliced[headerNr]);
+                    if (spliced[headerNr] != "")
+                    {
+                        CustomHeader.Add(spliced[headerNr]);
+                    }
                 }
                 else
                 { 
@@ -63,6 +67,28 @@ namespace SWE1_MTCG.Server
         {
             return ((HttpMethod == "GET") || (HttpMethod == "POST") || (HttpMethod == "PUT") ||
                     (HttpMethod == "DELETE"));
+        }
+
+        public string RequestToString()
+        {
+            string request = "";
+            request += HttpMethod + " " + RequestedResource + " " + HttpVersion + "\n";
+            foreach (var header in CustomHeader)
+            {
+                request += header;
+                if (header != CustomHeader.Last())
+                {
+                    request += "\n";
+                }
+            }
+
+            if (HttpMethod != "GET" && HttpMethod != "DELETE")
+            {
+                request += "\nContent-Length: " + ContentLength + "\n\n";
+                request += Content;
+            }
+
+            return request;
         }
     }
 }

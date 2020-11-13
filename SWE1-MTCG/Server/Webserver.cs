@@ -16,9 +16,11 @@ namespace SWE1_MTCG.Server
         private IPAddress _ipAddress = IPAddress.Loopback;
         private int _port = 11000;
         private byte[] _buffer;
+        private IApiService _apiService;
 
-        public Webserver()
+        public Webserver(IApiService apiService)
         {
+            _apiService = apiService;
             try
             {
                 _webserver = new TcpListener(_ipAddress, _port);
@@ -64,14 +66,13 @@ namespace SWE1_MTCG.Server
                 } while (networkStream.DataAvailable);
 
                 request = new RequestContext(Encoding.ASCII.GetString(memoryStream.ToArray(), 0, (int) memoryStream.Length));
-                Console.WriteLine("Method called: " + request.HttpMethod);
+                Console.WriteLine(request.RequestToString());
             }
 
             string responseString;
-            Regex messageRegex = new Regex(@"^/messages/?\d*$");
-            if (messageRegex.IsMatch(request.RequestedResource))
+            IApi api = _apiService.GetApi(request);
+            if (api != null)
             {
-                MessageApi api = new MessageApi(request, messageRegex);
                 responseString = api.Interaction();
             }
             else
