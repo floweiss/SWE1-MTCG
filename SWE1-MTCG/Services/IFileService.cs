@@ -9,6 +9,7 @@ namespace SWE1_MTCG.Services
     {
         bool FileExists(string filename);
         bool DirectoryExists(string dirname);
+        string[] GetFilesInDir(string dirname);
         void CreateDirectory(string dirname);
         string ReadFromFile(string filename);
         void WriteToFile(string filename, string content);

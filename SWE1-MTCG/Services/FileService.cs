@@ -24,6 +24,10 @@ namespace SWE1_MTCG.Services
                 Directory.CreateDirectory(dirname);
             }
         }
+        public string[] GetFilesInDir(string dirname)
+        {
+            return Directory.GetFiles(dirname);
+        }
 
         public string ReadFromFile(string filename)
         {
@@ -39,17 +43,17 @@ namespace SWE1_MTCG.Services
         {
             string files = "";
 
-            foreach (var filename in Directory.GetFiles(dirname))
+            foreach (var filename in GetFilesInDir(dirname))
             {
                 if (!filename.EndsWith("Number.txt"))
                 {
                     int lastSlash = filename.LastIndexOf('\\');
-                    files = files + filename.Substring(lastSlash + 1) + ": " + File.ReadAllText(filename) +
+                    files = files + filename.Substring(lastSlash + 1) + ": " + ReadFromFile(filename) +
                             "\n";
                 }
             }
 
-            if (files == "")
+            if (files == "" || files == null)
             {
                 files = "No messages sent yet!";
             }
