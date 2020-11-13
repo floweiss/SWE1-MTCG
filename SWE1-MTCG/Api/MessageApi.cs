@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using SWE1_MTCG.Server;
+using SWE1_MTCG.Services;
 
 namespace SWE1_MTCG.Api
 {
@@ -13,20 +14,19 @@ namespace SWE1_MTCG.Api
     {
         private RequestContext _request;
         private Regex _regex;
+        private IFileService _fileService;
 
-        public MessageApi(RequestContext request, Regex regex)
+        public MessageApi(RequestContext request, Regex regex, IFileService fileService)
         {
             _request = request;
             _regex = regex;
+            _fileService = fileService;
         }
 
         public string Interaction()
         {
             string workingDir = Directory.GetCurrentDirectory()+"\\messages";
-            if (!Directory.Exists(workingDir))
-            {
-                Directory.CreateDirectory(workingDir);
-            }
+            _fileService.CreateDirectory(workingDir);
 
             // HTTPMethods
             switch (_request.HttpMethod)
@@ -59,9 +59,9 @@ namespace SWE1_MTCG.Api
                 {
                     string numberFile = workingDir + "\\Number.txt";
                     string text = null;
-                    if (File.Exists(numberFile))
+                    if (_fileService.FileExists(numberFile))
                     {
-                        text = File.ReadAllText(numberFile);
+                        text = _fileService.ReadFromFile(numberFile);
                     }
 
                     if (text != null)
@@ -82,9 +82,9 @@ namespace SWE1_MTCG.Api
                     }
 
                     string newFile = workingDir + "\\" + messageNumber.ToString() + ".txt";
-                    File.WriteAllText(newFile, _request.Content);
+                    _fileService.WriteToFile(newFile, _request.Content);
                     messageNumber++;
-                    File.WriteAllText(numberFile, messageNumber.ToString());
+                    _fileService.WriteToFile(numberFile, messageNumber.ToString());
                 }
 
                 return "POST OK - ID: " + (messageNumber - 1);
@@ -97,21 +97,7 @@ namespace SWE1_MTCG.Api
             if (_request.RequestedResource.EndsWith("messages") ||
                         _request.RequestedResource.EndsWith("messages/"))
             {
-                string files = "";
-                lock (this)
-                {
-                    foreach (var filename in Directory.GetFiles(workingDir))
-                    {
-                        if (!filename.EndsWith("Number.txt"))
-                        {
-                            int lastSlash = filename.LastIndexOf('\\');
-                            files = files + filename.Substring(lastSlash + 1) + ": " + File.ReadAllText(filename) +
-                                    "\n";
-                        }
-                    }
-                }
-
-                return files;
+                return _fileService.ReadAllFilesInDir(workingDir);
             }
             if (_regex.IsMatch(_request.RequestedResource))
             {
@@ -130,9 +116,9 @@ namespace SWE1_MTCG.Api
                 lock (this)
                 {
                     string filename = workingDir + "\\" + readMessageNumber + ".txt";
-                    if (File.Exists(filename))
+                    if (_fileService.FileExists(filename))
                     {
-                        return File.ReadAllText(filename);
+                        return _fileService.ReadFromFile(filename);
                     }
                 }
 
@@ -159,9 +145,9 @@ namespace SWE1_MTCG.Api
 
                 lock(this) {
                     string filenamePut = workingDir + "\\" + readMessageNumberPut + ".txt";
-                    if (File.Exists(filenamePut))
+                    if (_fileService.FileExists(filenamePut))
                     {
-                        File.WriteAllText(filenamePut, _request.Content);
+                        _fileService.WriteToFile(filenamePut, _request.Content);
                         return "PUT OK";
                     }
                 }
@@ -190,9 +176,9 @@ namespace SWE1_MTCG.Api
                 lock (this)
                 {
                     string filenameDel = workingDir + "\\" + readMessageNumberDel + ".txt";
-                    if (File.Exists(filenameDel))
+                    if (_fileService.FileExists(filenameDel))
                     {
-                        File.Delete(filenameDel);
+                        _fileService.DeleteFile(filenameDel);
                         return "DELETE OK";
                     }
                 }
