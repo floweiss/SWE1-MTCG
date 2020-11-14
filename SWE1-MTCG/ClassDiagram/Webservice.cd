@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SWE1_MTCG.Api.ApiService">
+    <Position X="6.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAAAAAIAAAAIAA=</HashCode>
+      <FileName>Api\ApiService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.MessageApi">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAAUAAAAAACBAAAAAAAAAIQAAAAIAA=</HashCode>
+      <FileName>Api\MessageApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Server.Webserver">
+    <Position X="1.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAgACAAAAgACAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Server\Webserver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Server.ResponseContext">
+    <Position X="1.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAACBAAIAAQAARAAEA=</HashCode>
+      <FileName>Server\ResponseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Server.RequestContext">
+    <Position X="3.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAgAAAAAgAIAAAKAAAAAAABAAAAAAAAQAAAA=</HashCode>
+      <FileName>Server\RequestContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Services.FileService">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQQAABAAAAAAAAAAAAAAEAAGIAAAAAQA=</HashCode>
+      <FileName>Services\FileService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="SWE1_MTCG.Api.IApi">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAEAAAAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\IApi.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Api.IApiService">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Api\IApiService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IFileService">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQQAABAAAAAAAAAAAAAAEAAGIAAAAAQA=</HashCode>
+      <FileName>Services\IFileService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
