@@ -35,7 +35,7 @@ namespace SWE1_MTCG.Server
                 StatusCode = 501;
                 StatusString = "Not Implemented";
             }
-            else if (Content.StartsWith("POST OK") || Content == "PUT OK")
+            else if (Content.StartsWith("POST OK - ID:"))
             {
                 StatusCode = 201;
                 StatusString = "Created";

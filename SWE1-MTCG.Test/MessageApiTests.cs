@@ -28,6 +28,7 @@ namespace SWE1_MTCG.Test
             Regex messageRegex = new Regex(@"^/messages/?\d*$");
             MessageApi api = new MessageApi(request, messageRegex, _fileService.Object, "messages");
 
+            // FileService gets mocked
             _fileService.Setup(s => s.GetFilesInDir("messages"))
                 .Returns(new string[] { "messages\\0.txt", "messages\\1.txt" });
             _fileService.Setup(s => s.ReadFromFile("messages\\0.txt")).Returns("Message0");
@@ -109,6 +110,20 @@ namespace SWE1_MTCG.Test
             string response = api.Interaction();
 
             Assert.AreEqual("POST OK - ID: 0", response);
+        }
+
+        [Test]
+        public void TestMessageApiPutUpdatesMessage()
+        {
+            string requestString = "PUT /messages/1 HTTP/1.1\r\nUser-Agent: curl/7.55.1\r\nAccept: */*\r\nContent-Length: 19\r\n\r\nOverwritten Message";
+            RequestContext request = new RequestContext(requestString);
+            Regex messageRegex = new Regex(@"^/messages/?\d*$");
+            MessageApi api = new MessageApi(request, messageRegex, _fileService.Object, "messages");
+            _fileService.Setup(s => s.FileExists("messages\\1.txt")).Returns(true);
+
+            string response = api.Interaction();
+
+            Assert.AreEqual("PUT OK", response);
         }
     }
 }

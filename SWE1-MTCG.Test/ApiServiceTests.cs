@@ -18,7 +18,7 @@ namespace SWE1_MTCG.Test
         }
 
         [Test]
-        public void TestApiServiceReturnsNotNull()
+        public void TestApiServiceReturnsApiAndNotNull()
         {
             string requestString = "GET /messages/ HTTP/1.1\r\nUser-Agent: curl/7.55.1\r\nAccept: */*";
             RequestContext request = new RequestContext(requestString);
