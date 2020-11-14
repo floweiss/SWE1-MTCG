@@ -17,21 +17,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="SWE1_MTCG.Server.Webserver">
-    <Position X="1.25" Y="1.5" Width="1.5" />
+    <Position X="3.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAgACAAAAgACAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Server\Webserver.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SWE1_MTCG.Server.ResponseContext">
-    <Position X="1.25" Y="4.5" Width="1.5" />
+    <Position X="1.25" Y="4.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAACBAAIAAQAARAAEA=</HashCode>
       <FileName>Server\ResponseContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SWE1_MTCG.Server.RequestContext">
-    <Position X="3.25" Y="1.5" Width="1.5" />
+    <Position X="1.25" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAgAAAAAgAIAAAKAAAAAAABAAAAAAAAQAAAA=</HashCode>
       <FileName>Server\RequestContext.cs</FileName>
