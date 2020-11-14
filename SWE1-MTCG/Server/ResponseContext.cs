@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SWE1_MTCG.Server
@@ -47,10 +48,10 @@ namespace SWE1_MTCG.Server
             }
 
             Host = "localhost:11000";
-            if (Array.Exists(request.CustomHeader.ToArray(), element => element.StartsWith("Host:", StringComparison.Ordinal)))
+            string value = "";
+            if (request.CustomHeader.TryGetValue("Host", out value))
             {
-                Host = Array.Find(request.CustomHeader.ToArray(), element => element.StartsWith("Host:", StringComparison.Ordinal));
-                Host = Host.Substring(6, Host.Length - 6);
+                Host = value;
             }
         }
 

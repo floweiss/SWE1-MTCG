@@ -15,7 +15,7 @@ namespace SWE1_MTCG.Server
         public string RequestedResource { get; private set; }
         public int ContentLength { get; protected set; }
         public string Content { get; protected set; }
-        public List<string> CustomHeader { get; protected set; }
+        public SortedList<string, string> CustomHeader { get; protected set; }
 
         public RequestContext(string request)
         {
@@ -29,14 +29,17 @@ namespace SWE1_MTCG.Server
 
             
             int headerNr = 2; 
-            CustomHeader = new List<string>(); 
+            CustomHeader = new SortedList<string, string>(); 
             while (headerNr < spliced.Length)
             {
                 if (!spliced[headerNr].StartsWith("Content-Length:"))
                 {
                     if (spliced[headerNr] != "")
                     {
-                        CustomHeader.Add(spliced[headerNr]);
+                        int location = spliced[headerNr].IndexOf(':');
+                        string key = spliced[headerNr].Substring(0, location);
+                        string value = spliced[headerNr].Substring((location + 2), (spliced[headerNr].Length-location-2));
+                        CustomHeader.Add(key, value);
                     }
                 }
                 else
@@ -75,14 +78,14 @@ namespace SWE1_MTCG.Server
             request += HttpMethod + " " + RequestedResource + " " + HttpVersion + "\n";
             foreach (var header in CustomHeader)
             {
-                request += header;
-                if (header != CustomHeader.Last())
+                request += (header.Key + ": " + header.Value);
+                if (header.Key != CustomHeader.Last().Key)
                 {
                     request += "\n";
                 }
             }
 
-            if (HttpMethod != "GET" && HttpMethod != "DELETE")
+            if (HttpMethod == "POST" || HttpMethod == "PUT")
             {
                 request += "\nContent-Length: " + ContentLength + "\n\n";
                 request += Content;
