@@ -6,4 +6,8 @@
     <RootNamespace>SWE1_MTCG</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="3.1.8" />
+  </ItemGroup>
+
 </Project>
