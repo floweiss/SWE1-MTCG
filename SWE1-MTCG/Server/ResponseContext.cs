@@ -60,7 +60,7 @@ namespace SWE1_MTCG.Server
             string response = "";
 
             response += HttpVersion + " " + StatusCode + " " + StatusString + "\n";
-            response += "Via: " + HttpVersion + " " + Host + "\n";
+            response += "Via: Florian Weiss SWE1-MTCG-Server\n";
             response += "Content Type: " + ContentType + "\n";
             response += "Content Length: " + ContentLength.ToString() + "\n\n";
             response += Content;

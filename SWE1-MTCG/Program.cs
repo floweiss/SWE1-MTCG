@@ -16,11 +16,13 @@ namespace SWE1_MTCG
     {
         public static void Main(string[] args)
         {
-            /*ApiService apiService = new ApiService();
+            ApiService apiService = new ApiService();
             Webserver server = new Webserver(apiService);
-            server.Start();*/
+            server.Start();
 
-            var cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
+
+            // DB TEST
+            /*var cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
@@ -28,7 +30,7 @@ namespace SWE1_MTCG
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            /*cmd.CommandText = "DROP TABLE IF EXISTS cars";
+            cmd.CommandText = "DROP TABLE IF EXISTS cars";
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = @"CREATE TABLE cars(id SERIAL PRIMARY KEY, 
@@ -36,9 +38,9 @@ namespace SWE1_MTCG
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = "INSERT INTO cars(name, price) VALUES('Audi',52642)";
-            cmd.ExecuteNonQuery();*/
+            cmd.ExecuteNonQuery();
 
-            Console.WriteLine("Done");
+            Console.WriteLine("Done");*/
         }
     }
 }
