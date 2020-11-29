@@ -52,7 +52,7 @@ namespace SWE1_MTCG.Server
 
             if (MethodIsAllowed())
             {
-                if (HttpMethod != "GET" && HttpMethod != "DELETE")
+                if (spliced.Length > headerNr)
                 {
                     ContentLength = int.Parse(spliced[headerNr].Split(' ')[1]);
 
