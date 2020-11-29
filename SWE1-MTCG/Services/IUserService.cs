@@ -6,7 +6,7 @@ namespace SWE1_MTCG.Services
 {
     public interface IUserService
     {
-        void Register(User user);
+        string Register(User user);
 
         User Login(User user);
 

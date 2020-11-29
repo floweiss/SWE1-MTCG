@@ -10,6 +10,7 @@ namespace SWE1_MTCG
     {
         public string Username;
         private string _password;
+        public string Base64PW;
         public int Coins;
         public CardDeck Deck;
         public CardStack Stack;
@@ -18,9 +19,18 @@ namespace SWE1_MTCG
         {
             Username = username;
             _password = password;
+            Base64PW = EncodeTo64(password);
             Coins = 20;
             Deck = new CardDeck();
             Stack = new CardStack();
+        }
+
+        // https://arcanecode.com/2007/03/21/encoding-strings-to-base64-in-c/
+        private string EncodeTo64(string toEncode)
+        {
+            byte[] toEncodeAsBytes = System.Text.Encoding.ASCII.GetBytes(toEncode);
+            string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
+            return returnValue;
         }
 
         public void AddCardsToStack()

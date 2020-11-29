@@ -21,7 +21,7 @@ namespace SWE1_MTCG.Server
             ContentType = "plain/text";
             ContentLength = content.Length;
             Content = content;
-            if (Content.StartsWith("ERR"))
+            if (Content.StartsWith("ERR") || Content.StartsWith("POST ERR"))
             {
                 StatusCode = 400;
                 StatusString = "Bad Request";
@@ -36,7 +36,7 @@ namespace SWE1_MTCG.Server
                 StatusCode = 501;
                 StatusString = "Not Implemented";
             }
-            else if (Content.StartsWith("POST OK - ID:"))
+            else if (Content.StartsWith("POST OK"))
             {
                 StatusCode = 201;
                 StatusString = "Created";

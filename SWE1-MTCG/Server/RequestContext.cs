@@ -4,7 +4,9 @@ using System.Net.Http;
 using System.Text;
 using System;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.VisualBasic.FileIO;
+using SWE1_MTCG.DataTransferObject;
 
 namespace SWE1_MTCG.Server
 {
@@ -28,7 +30,7 @@ namespace SWE1_MTCG.Server
             RequestedResource = firstLine[1];
 
             
-            int headerNr = 2; 
+            int headerNr = 1; 
             CustomHeader = new SortedList<string, string>(); 
             while (headerNr < spliced.Length)
             {

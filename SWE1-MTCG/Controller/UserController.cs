@@ -15,10 +15,10 @@ namespace SWE1_MTCG.Controller
             _userService = userService;
         }
 
-        public void Register(string username, string password)
+        public string Register(string username, string password)
         {
             User user = new User(username, password);
-            _userService.Register(user);
+            return _userService.Register(user);
         }
 
         public bool Login(User user)
