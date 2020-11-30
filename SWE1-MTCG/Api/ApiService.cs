@@ -13,6 +13,7 @@ namespace SWE1_MTCG.Api
         private IFileService _fileService = new FileService();
         private Regex _messageRegex = new Regex(@"^/messages/?\d*$");
         private Regex _userRegex = new Regex(@"^/users/?\d*$");
+        private Regex _sessionRegex = new Regex(@"^/sessions/?\d*$");
         private string _workingDir = Directory.GetCurrentDirectory();
 
         public IApi GetApi(RequestContext request)
@@ -22,9 +23,14 @@ namespace SWE1_MTCG.Api
                 _workingDir += "\\messages";
                 return new MessageApi(request, _messageRegex, _fileService, _workingDir);
             }
-            else if (_userRegex.IsMatch(request.RequestedResource))
+            if (_userRegex.IsMatch(request.RequestedResource))
             {
                 return new UserApi(request);
+            }
+
+            if (_sessionRegex.IsMatch(request.RequestedResource))
+            {
+                return new SessionApi(request);
             }
 
             return null;

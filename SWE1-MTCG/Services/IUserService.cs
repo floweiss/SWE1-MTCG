@@ -8,7 +8,7 @@ namespace SWE1_MTCG.Services
     {
         string Register(User user);
 
-        User Login(User user);
+        string Login(User user);
 
         bool isLoggedIn(User user);
 

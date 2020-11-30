@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using SWE1_MTCG.Controller;
 using SWE1_MTCG.DataTransferObject;
 using SWE1_MTCG.Server;
@@ -9,13 +11,13 @@ using SWE1_MTCG.Services;
 
 namespace SWE1_MTCG.Api
 {
-    public class UserApi : IApi
+    public class SessionApi : IApi
     {
         private RequestContext _request;
         private UserController _userController;
         private UserDTO _userdata;
 
-        public UserApi(RequestContext request)
+        public SessionApi(RequestContext request)
         {
             _request = request;
             try
@@ -26,7 +28,6 @@ namespace SWE1_MTCG.Api
             {
                 _userdata = null;
             }
-            
             IUserService userService = new UserService();
             _userController = new UserController(userService);
         }
@@ -53,7 +54,7 @@ namespace SWE1_MTCG.Api
             {
                 return "POST ERR - Username or Password are empty";
             }
-            return _userController.Register(_userdata.Username, _userdata.Password);
+            return _userController.Login(_userdata.Username, _userdata.Password);
         }
 
         public string GetMethod()

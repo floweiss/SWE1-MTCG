@@ -21,14 +21,16 @@ namespace SWE1_MTCG.Controller
             return _userService.Register(user);
         }
 
-        public bool Login(User user)
+        public string Login(string username, string password)
         {
+            User user = new User(username, password);
+
             if (_userService.IsRegistered(user))
             {
-                User = _userService.Login(user);
+                return _userService.Login(user);
             }
 
-            return User != null;
+            return "POST ERR - Login failed";
         }
     }
 }
