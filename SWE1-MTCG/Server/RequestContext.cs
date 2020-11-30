@@ -87,7 +87,7 @@ namespace SWE1_MTCG.Server
                 }
             }
 
-            if (HttpMethod == "POST" || HttpMethod == "PUT")
+            if (!String.IsNullOrEmpty(Content))
             {
                 request += "\nContent-Length: " + ContentLength + "\n\n";
                 request += Content;
