@@ -66,7 +66,7 @@ namespace SWE1_MTCG.Services
                     {
                         string userToken = "{" + user.Username + "}-mtcgToken";
                         ClientSingleton.GetInstance.ClientMap.AddOrUpdate(userToken, user, (key, oldValue) => user);
-                        return "POST OK - Logged in as "+user.Username;
+                        return "POST OK - Authentication-Token: "+userToken;
                     }
                 }
             }
@@ -76,12 +76,32 @@ namespace SWE1_MTCG.Services
 
         public bool isLoggedIn(User user)
         {
-            return true;
+            string userToken = "{" + user.Username + "}-mtcgToken";
+            return ClientSingleton.GetInstance.ClientMap.ContainsKey(userToken);
         }
 
         public bool IsRegistered(User user)
         {
-            return true;
+            using NpgsqlConnection con = new NpgsqlConnection(_cs);
+            con.Open();
+
+            using NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255))";
+            cmd.ExecuteNonQuery();
+
+            string sqlCheckUser = "SELECT * FROM users";
+            using NpgsqlCommand cmdCheckUser = new NpgsqlCommand(sqlCheckUser, con);
+            using NpgsqlDataReader reader = cmdCheckUser.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.GetString(0) == user.Username)
+                {
+                    return true;
+                }
+            }
+            reader.Close();
+            return false;
         }
     }
 }
