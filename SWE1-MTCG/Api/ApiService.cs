@@ -14,6 +14,8 @@ namespace SWE1_MTCG.Api
         private Regex _messageRegex = new Regex(@"^/messages/?\d*$");
         private Regex _userRegex = new Regex(@"^/users/?\d*$");
         private Regex _sessionRegex = new Regex(@"^/sessions/?\d*$");
+        private Regex _cardRegex = new Regex(@"^/cards/?\d*$");
+        private Regex _packageRegex = new Regex(@"^/packages/?\d*$");
 
         public IApi GetApi(RequestContext request)
         {
@@ -28,6 +30,14 @@ namespace SWE1_MTCG.Api
             if (_sessionRegex.IsMatch(request.RequestedResource))
             {
                 return new SessionApi(request);
+            }
+            if (_cardRegex.IsMatch(request.RequestedResource))
+            {
+                return new CardApi(request);
+            }
+            if (_packageRegex.IsMatch(request.RequestedResource))
+            {
+                return new PackageApi(request);
             }
 
             return null;
