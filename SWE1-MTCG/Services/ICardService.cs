@@ -8,7 +8,7 @@ namespace SWE1_MTCG.Services
 {
     public interface ICardService
     {
-        string CreateCard(Card card);
+        string CreateCard(CardDTO card);
 
         string DeleteCard(Card card);
     }

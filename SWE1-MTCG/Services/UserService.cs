@@ -74,10 +74,16 @@ namespace SWE1_MTCG.Services
             return "POST ERR - Login failed";
         }
 
-        public bool isLoggedIn(User user)
+        public bool isLoggedIn(RequestContext request)
         {
-            string userToken = "{" + user.Username + "}-mtcgToken";
-            return ClientSingleton.GetInstance.ClientMap.ContainsKey(userToken);
+            if (request.CustomHeader.ContainsKey("Authorization"))
+            {
+                string userToken = request.CustomHeader["Authorization"];
+                userToken = userToken.Substring(userToken.IndexOf(':') + 8);
+                return ClientSingleton.GetInstance.ClientMap.ContainsKey(userToken);
+            }
+
+            return false;
         }
 
         public bool IsRegistered(User user)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SWE1_MTCG.Server;
 
 namespace SWE1_MTCG.Services
 {
@@ -10,7 +11,7 @@ namespace SWE1_MTCG.Services
 
         string Login(User user);
 
-        bool isLoggedIn(User user);
+        bool isLoggedIn(RequestContext request);
 
         bool IsRegistered(User user);
     }

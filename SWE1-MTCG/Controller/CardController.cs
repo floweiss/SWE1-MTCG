@@ -19,9 +19,7 @@ namespace SWE1_MTCG.Controller
 
         public string CreateCard(CardDTO cardDto)
         {
-            // ToDo: Create real card from DTO
-            Card card = null;
-            return _cardService.CreateCard(card);
+            return _cardService.CreateCard(cardDto);
         }
 
         public string DeleteCard(CardDTO cardDto)
