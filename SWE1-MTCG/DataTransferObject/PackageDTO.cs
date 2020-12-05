@@ -8,6 +8,7 @@ namespace SWE1_MTCG.DataTransferObject
 {
     public class PackageDTO
     {
-        public List<CardDTO> Cards { get; set; }
+        public string PackageId { get; set; }
+        public List<string> CardIds { get; set; }
     }
 }

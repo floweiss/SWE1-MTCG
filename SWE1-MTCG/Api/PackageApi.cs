@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SWE1_MTCG.Controller;
 using SWE1_MTCG.DataTransferObject;
 using SWE1_MTCG.Server;
+using SWE1_MTCG.Services;
 
 namespace SWE1_MTCG.Api
 {
@@ -13,6 +15,7 @@ namespace SWE1_MTCG.Api
     {
         private RequestContext _request;
         private PackageDTO _package;
+        private PackageController _packageController;
 
         public PackageApi(RequestContext request)
         {
@@ -25,6 +28,8 @@ namespace SWE1_MTCG.Api
             {
                 _package = null;
             }
+            IPackageService packageService = new PackageService();
+            _packageController = new PackageController(packageService);
         }
 
         public string Interaction()
@@ -41,7 +46,16 @@ namespace SWE1_MTCG.Api
 
         public string PostMethod()
         {
-            return _package.Cards.Count.ToString();
+            if (!_request.CustomHeader.ContainsKey("Content-Type") || _request.CustomHeader["Content-Type"] != "application/json")
+            {
+                return "POST ERR - Request not in JSON Format";
+            }
+            else if (string.IsNullOrWhiteSpace(_package.PackageId) || _package.CardIds.Count == 0)
+            {
+                return "POST ERR - No valid Package";
+            }
+
+            return _packageController.CreatePackage(_package);
         }
 
         public string GetMethod()
