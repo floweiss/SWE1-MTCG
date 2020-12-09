@@ -9,7 +9,7 @@ namespace SWE1_MTCG.Services
 {
     public class UserService : IUserService
     {
-        private string _cs = "Host=localhost;Username=postgres;Database=mtcg-db";
+        private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=mtcg-db";
         public string Register(User user)
         {
             // http://zetcode.com/csharp/postgresql/
