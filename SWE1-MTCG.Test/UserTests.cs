@@ -29,7 +29,7 @@ namespace SWE1_MTCG.Test
             _userController = new UserController(_userService.Object);
         }
 
-        [Test]
+        /*[Test]
         public void TestUserLoginReturnsFalseWhenUserNotRegistered()
         {
             _userService.Setup(s => s.IsRegistered(_user)).Returns(false);
@@ -48,6 +48,6 @@ namespace SWE1_MTCG.Test
             _userController.Login(_user);
 
             Assert.IsNotNull(_userController.User);
-        }
+        }*/
     }
 }

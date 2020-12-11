@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SWE1_MTCG.Cards;
 using SWE1_MTCG.Cards.Monsters;
+using SWE1_MTCG.Cards.Spells;
 using SWE1_MTCG.Enums;
 using SWE1_MTCG.Interfaces;
 
@@ -17,6 +18,15 @@ namespace SWE1_MTCG.DataTransferObject
         public string CardType { get; set; }
         public string Element { get; set; }
         public double Damage { get; set; }
+
+        public CardDTO(string id, string name, string cardType, string element, double damage)
+        {
+            Id = id;
+            Name = name;
+            CardType = cardType;
+            Element = element;
+            Damage = damage;
+        }
 
         public Card ToCard()
         {
@@ -46,6 +56,12 @@ namespace SWE1_MTCG.DataTransferObject
                     return new Orc(Id, Name, Damage, elementType);
                 case "wizard":
                     return new Wizard(Id, Name, Damage, elementType);
+                case "normalspell":
+                    return new NormalSpell(Id, Name, Damage);
+                case "waterspell":
+                    return new WaterSpell(Id, Name, Damage);
+                case "firespell":
+                    return new FireSpell(Id, Name, Damage);
                 default:
                     return null;
             }

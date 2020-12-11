@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SWE1_MTCG.DataTransferObject;
 using SWE1_MTCG.Services;
 
 namespace SWE1_MTCG.Controller
@@ -31,6 +32,11 @@ namespace SWE1_MTCG.Controller
             }
 
             return "POST ERR - Login failed";
+        }
+
+        public string AquirePackage(string usertoken, AquirePackageDTO package)
+        {
+            return _userService.AquirePackage(usertoken, package.PackageId);
         }
     }
 }

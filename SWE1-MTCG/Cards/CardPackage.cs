@@ -15,7 +15,6 @@ namespace SWE1_MTCG.Cards
         public CardPackage()
         {
             CardCollection = new List<Card>();
-            GetRandomCards();
         }
 
         public void AddCard(Card addedCard)

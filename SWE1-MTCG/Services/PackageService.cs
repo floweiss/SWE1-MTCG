@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using Npgsql;
 using SWE1_MTCG.Cards;
 using SWE1_MTCG.DataTransferObject;
+using System.Configuration;
 
 namespace SWE1_MTCG.Services
 {
     public class PackageService : IPackageService
     {
         private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=mtcg-db";
-
+        
         public string CreatePackage(PackageDTO package)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
@@ -40,7 +41,7 @@ namespace SWE1_MTCG.Services
             using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sql, con))
             {
                 cmdPrepared.Parameters.AddWithValue("packageid", package.PackageId);
-                cmdPrepared.Parameters.AddWithValue("cardids", JsonSerializer.Serialize(package.CardIds));
+                cmdPrepared.Parameters.AddWithValue("cardids", JsonSerializer.Serialize(package));
                 cmdPrepared.ExecuteNonQuery();
             }
 

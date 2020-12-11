@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using Npgsql;
 using NpgsqlTypes;
+using SWE1_MTCG.Cards;
+using SWE1_MTCG.DataTransferObject;
 using SWE1_MTCG.Server;
 
 namespace SWE1_MTCG.Services
@@ -64,7 +67,7 @@ namespace SWE1_MTCG.Services
                 {
                     if (reader.GetString(1) == user.HashedPW)
                     {
-                        string userToken = "{" + user.Username + "}-mtcgToken";
+                        string userToken = user.Username + "-mtcgToken";
                         ClientSingleton.GetInstance.ClientMap.AddOrUpdate(userToken, user, (key, oldValue) => user);
                         return "POST OK - Authentication-Token: "+userToken;
                     }
@@ -108,6 +111,55 @@ namespace SWE1_MTCG.Services
             }
             reader.Close();
             return false;
+        }
+
+        public string AquirePackage(string usertoken, string packageId)
+        {
+            User user;
+            ClientSingleton.GetInstance.ClientMap.TryGetValue(usertoken, out user);
+
+            using NpgsqlConnection con = new NpgsqlConnection(_cs);
+            con.Open();
+
+            List<string> cardIds = null;
+            string sqlAllPackages = "SELECT * FROM packages";
+            using NpgsqlCommand cmdPackages = new NpgsqlCommand(sqlAllPackages, con);
+            using NpgsqlDataReader reader = cmdPackages.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.GetString(0) == packageId)
+                {
+                    try
+                    {
+                        cardIds = JsonSerializer.Deserialize<PackageDTO>(reader.GetString(1)).CardIds;
+                    }
+                    catch (Exception e)
+                    {
+                        cardIds = null;
+                    }
+                }
+            }
+            reader.Close();
+
+            CardPackage pack = new CardPackage();
+            string sqlAllCards = "SELECT * FROM cards";
+            using NpgsqlCommand cmdCards = new NpgsqlCommand(sqlAllCards, con);
+            using NpgsqlDataReader readerCards = cmdCards.ExecuteReader();
+            while (readerCards.Read())
+            {
+                foreach (var cardId in cardIds)
+                {
+                    if (readerCards.GetString(0) == cardId)
+                    {
+                        CardDTO cardDto = new CardDTO(readerCards.GetString(0), readerCards.GetString(1), readerCards.GetString(2), readerCards.GetString(3), readerCards.GetDouble(4));
+                        Card card = cardDto.ToCard();
+                        pack.AddCard(card);
+                    }
+                }
+            }
+            user.AddCardsToStack(pack);
+            readerCards.Close();
+            return "POST OK";
         }
     }
 }

@@ -41,9 +41,8 @@ namespace SWE1_MTCG.Cards
             }
         }
 
-        public void AddPackage()
+        public void AddPackage(CardPackage pack)
         {
-            CardPackage pack = new CardPackage();
             foreach (var card in pack.CardCollection)
             {
                 AddCard(card);

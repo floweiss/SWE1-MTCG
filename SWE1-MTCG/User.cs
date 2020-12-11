@@ -34,11 +34,11 @@ namespace SWE1_MTCG
             return Convert.ToBase64String(hashBytes);
         }
 
-        public void AddCardsToStack()
+        public void AddCardsToStack(CardPackage pack)
         {
             if (Coins > 0)
             {
-                Stack.AddPackage();
+                Stack.AddPackage(pack);
                 Coins -= 5;
             }
         }
