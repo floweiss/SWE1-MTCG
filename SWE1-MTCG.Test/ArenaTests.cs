@@ -24,6 +24,8 @@ namespace SWE1_MTCG.Test
         private User _user1;
         private User _user2;
         private Arena _arena;
+        private List<Card> _pack;
+        private CardPackage _package;
 
         [SetUp]
         public void SetUp()
@@ -33,6 +35,18 @@ namespace SWE1_MTCG.Test
             _user1 = new User("user1", "supergeheim");
             _user2 = new User("user2", "secretsecret");
             _arena = new Arena(_user1, _user2);
+            _pack = new List<Card>{
+                new Wizard("wizgan","Gandalf", 100, ElementType.Normal),
+                new Orc("orcbur","Burul", 80, ElementType.Normal),
+                new Elve("elverl","Erlan Erhice", 50, ElementType.Fire),
+                new Dragon("drabal","Balrog", 150, ElementType.Water),
+                new WaterSpell("watwat","Water Whirl", 70)
+            };
+            _package = new CardPackage();
+            foreach (var card in _pack)
+            {
+                _package.AddCard(card);
+            }
         }
 
         [TestCase(1)]
@@ -65,8 +79,8 @@ namespace SWE1_MTCG.Test
             ElementEffectivenessService elementEffectivenessService = new ElementEffectivenessService();
             IArenaService arenaService = new ArenaService(elementEffectivenessService);
 
-            _user1.AddCardsToStack();
-            _user2.AddCardsToStack();
+            _user1.AddCardsToStack(_package);
+            _user2.AddCardsToStack(_package);
 
             _user1.AddCardToDeck("Gandalf");
             _user1.AddCardToDeck("Burul");
