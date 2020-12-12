@@ -13,7 +13,7 @@ namespace SWE1_MTCG.Services
 {
     public class PackageService : IPackageService
     {
-        private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=mtcg-db";
+        private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
         
         public string CreatePackage(PackageDTO package)
         {

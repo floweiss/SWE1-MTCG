@@ -12,7 +12,7 @@ namespace SWE1_MTCG.Services
 {
     public class UserService : IUserService
     {
-        private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=mtcg-db";
+        private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
         public string Register(User user)
         {
             // http://zetcode.com/csharp/postgresql/
@@ -131,6 +131,7 @@ namespace SWE1_MTCG.Services
                 {
                     try
                     {
+                        PackageDTO packageeee = JsonSerializer.Deserialize<PackageDTO>(reader.GetString(1));
                         cardIds = JsonSerializer.Deserialize<PackageDTO>(reader.GetString(1)).CardIds;
                     }
                     catch (Exception e)
@@ -159,7 +160,58 @@ namespace SWE1_MTCG.Services
             }
             user.AddCardsToStack(pack);
             readerCards.Close();
+            PersistUserData(user, usertoken);
             return "POST OK";
+        }
+
+        private void PersistUserData(User user, string usertoken)
+        {
+            using NpgsqlConnection con = new NpgsqlConnection(_cs);
+            con.Open();
+
+            using NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS userdata(token VARCHAR(255), coins DOUBLE PRECISION, deck VARCHAR(255), stack VARCHAR(800))";
+            cmd.ExecuteNonQuery();
+
+            string sqlCheckUser = "SELECT * FROM userdata";
+            using NpgsqlCommand cmdCheckUser = new NpgsqlCommand(sqlCheckUser, con);
+            using NpgsqlDataReader reader = cmdCheckUser.ExecuteReader();
+            bool updateUser = false;
+            while (reader.Read())
+            {
+                if (reader.GetString(0) == usertoken)
+                {
+                    updateUser = true;
+                }
+            }
+            reader.Close();
+            if (updateUser)
+            {
+                string sqlUpdate =
+                    "UPDATE userdata (token, coins, deck, stack) VALUES (@token, @coins, @deck, @stack) WHERE token = '" +
+                    usertoken + "'";
+                using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlUpdate, con))
+                {
+                    cmdPrepared.Parameters.AddWithValue("token", usertoken);
+                    cmdPrepared.Parameters.AddWithValue("coins", user.Coins);
+                    cmdPrepared.Parameters.AddWithValue("deck", user.Deck.ToString());
+                    cmdPrepared.Parameters.AddWithValue("stack", user.Stack.ToString());
+                    cmdPrepared.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                var sqlInsert = "INSERT INTO userdata (token, coins, deck, stack) VALUES (@token, @coins, @deck, @stack)";
+                using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlInsert, con))
+                {
+                    cmdPrepared.Parameters.AddWithValue("token", usertoken);
+                    cmdPrepared.Parameters.AddWithValue("coins", user.Coins);
+                    cmdPrepared.Parameters.AddWithValue("deck", user.Deck.ToString());
+                    cmdPrepared.Parameters.AddWithValue("stack", user.Stack.ToString());
+                    cmdPrepared.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
