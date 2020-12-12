@@ -48,5 +48,16 @@ namespace SWE1_MTCG.Cards
                 AddCard(card);
             }
         }
+
+        public List<string> ToCardIds()
+        {
+            List<string> cardIds = new List<string>();
+            foreach (var card in CardCollection)
+            {
+                cardIds.Add(card.ID);
+            }
+
+            return cardIds;
+        }
     }
 }
