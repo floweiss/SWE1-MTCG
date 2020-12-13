@@ -121,6 +121,10 @@ namespace SWE1_MTCG.Services
         {
             User user;
             ClientSingleton.GetInstance.ClientMap.TryGetValue(usertoken, out user);
+            if (user.Coins == 0)
+            {
+                return "POST ERR - No coins";
+            }
 
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
             con.Open();
@@ -144,6 +148,10 @@ namespace SWE1_MTCG.Services
                 }
             }
             reader.Close();
+            if (cardIds == null || cardIds.Count == 0)
+            {
+                return "POST ERR - Invalid PackageID";
+            }
 
             CardPackage pack = new CardPackage();
             string sqlAllCards = "SELECT * FROM cards";
