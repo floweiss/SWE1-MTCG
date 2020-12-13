@@ -26,6 +26,19 @@ namespace SWE1_MTCG.Cards
             CardCollection.Remove(removedCard);
         }
 
+        public Card GetCard(string cardId)
+        {
+            foreach (var card in CardCollection)
+            {
+                if (card.ID == cardId)
+                {
+                    return card;
+                }
+            }
+
+            return null;
+        }
+
         public void RemoveCardByName(string cardName)
         {
             foreach (var card in CardCollection)

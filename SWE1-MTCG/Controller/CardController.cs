@@ -10,7 +10,6 @@ namespace SWE1_MTCG.Controller
     public class CardController
     {
         private ICardService _cardService;
-        public Card Card { get; set; }
 
         public CardController(ICardService cardService)
         {

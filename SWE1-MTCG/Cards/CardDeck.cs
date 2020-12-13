@@ -51,6 +51,19 @@ namespace SWE1_MTCG.Cards
             }
         }*/
 
+        public bool IsCardInDeck(Card checkCard)
+        {
+            foreach (var card in CardCollection)
+            {
+                if (card.ID == checkCard.ID)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public Card GetRandomCard()
         {
             Random rnd = new Random();
