@@ -13,6 +13,7 @@ namespace SWE1_MTCG.Services
 {
     public class CardService : ICardService
     {
+        private IUserDataService _userDataService = new UserDataService();
         private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
 
         public string CreateCard(CardDTO card)

@@ -14,6 +14,7 @@ namespace SWE1_MTCG.Services
 {
     public class DeckService : IDeckService
     {
+        private IUserDataService _userDataService = new UserDataService();
         private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
 
         public string ShowDeck(string usertoken)
@@ -68,58 +69,8 @@ namespace SWE1_MTCG.Services
                 user.Stack.RemoveCard(cardToAdd);
             }
 
-            PersistUserData(user, usertoken);
+            _userDataService.PersistUserData(user, usertoken);
             return "POST OK - Cards added to Deck";
-        }
-
-        private void PersistUserData(User user, string usertoken)
-        {
-            using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
-
-            using NpgsqlCommand cmd = new NpgsqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS userdata(token VARCHAR(255), coins INTEGER, deck VARCHAR(255), stack VARCHAR(800))";
-            cmd.ExecuteNonQuery();
-
-            string sqlCheckUser = "SELECT * FROM userdata";
-            using NpgsqlCommand cmdCheckUser = new NpgsqlCommand(sqlCheckUser, con);
-            using NpgsqlDataReader reader = cmdCheckUser.ExecuteReader();
-            bool updateUser = false;
-            while (reader.Read())
-            {
-                if (reader.GetString(0) == usertoken)
-                {
-                    updateUser = true;
-                }
-            }
-            reader.Close();
-            if (updateUser)
-            {
-                string sqlUpdate =
-                    "UPDATE userdata SET token = @token, coins = @coins, deck = @deck, stack = @stack WHERE token = @findToken";
-                using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlUpdate, con))
-                {
-                    cmdPrepared.Parameters.AddWithValue("token", usertoken);
-                    cmdPrepared.Parameters.AddWithValue("findToken", usertoken);
-                    cmdPrepared.Parameters.AddWithValue("coins", user.Coins);
-                    cmdPrepared.Parameters.AddWithValue("deck", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Deck.ToCardIds()) + "}");
-                    cmdPrepared.Parameters.AddWithValue("stack", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Stack.ToCardIds()) + "}");
-                    cmdPrepared.ExecuteNonQuery();
-                }
-            }
-            else
-            {
-                var sqlInsert = "INSERT INTO userdata (token, coins, deck, stack) VALUES (@token, @coins, @deck, @stack)";
-                using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlInsert, con))
-                {
-                    cmdPrepared.Parameters.AddWithValue("token", usertoken);
-                    cmdPrepared.Parameters.AddWithValue("coins", user.Coins);
-                    cmdPrepared.Parameters.AddWithValue("deck", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Deck.ToCardIds()) + "}");
-                    cmdPrepared.Parameters.AddWithValue("stack", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Stack.ToCardIds()) + "}");
-                    cmdPrepared.ExecuteNonQuery();
-                }
-            }
         }
     }
 }
