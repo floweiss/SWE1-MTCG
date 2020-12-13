@@ -23,7 +23,7 @@ namespace SWE1_MTCG.Cards.Monsters
 
         public override string ToCardString()
         {
-            return "Card ID " + ID + ": Dragon of Element " + Type + " with Damage " + Damage;
+            return "Card ID " + ID + ": Dragon " + Name + " of Element " + Type + " with Damage " + Damage;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace SWE1_MTCG.Cards.Monsters
 
         public override string ToCardString()
         {
-            return "Card ID " + ID + ": Knight of Element " + Type + " with Damage " + Damage;
+            return "Card ID " + ID + ": Knight " + Name + " of Element " + Type + " with Damage " + Damage;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SWE1_MTCG.Cards.Spells
 
         public override string ToCardString()
         {
-            return "Card ID " + ID + ": Spell of Element " + Type + " with Damage " + Damage;
+            return "Card ID " + ID + ": Spell " + Name + " of Element " + Type + " with Damage " + Damage;
         }
     }
 }

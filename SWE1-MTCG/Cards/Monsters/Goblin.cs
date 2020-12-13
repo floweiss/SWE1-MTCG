@@ -28,7 +28,7 @@ namespace SWE1_MTCG.Cards.Monsters
 
         public override string ToCardString()
         {
-            return "Card ID " + ID + ": Goblin of Element " + Type + " with Damage " + Damage;
+            return "Card ID " + ID + ": Goblin " + Name + " of Element " + Type + " with Damage " + Damage;
         }
     }
 }
