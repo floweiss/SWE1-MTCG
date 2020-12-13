@@ -39,6 +39,9 @@ namespace SWE1_MTCG.Api
                 case "POST":
                     return PostMethod();
 
+                case "GET":
+                    return GetMethod();
+
                 default:
                     return "Method ERR";
             }
@@ -60,7 +63,19 @@ namespace SWE1_MTCG.Api
 
         public string GetMethod()
         {
-            throw new NotImplementedException();
+            string usertoken;
+            if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
+            {
+                return "GET ERR - No authorization header";
+            }
+
+            usertoken = usertoken.Substring(6, usertoken.Length - 6);
+            if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
+            {
+                return "GET ERR - Not logged in";
+            }
+
+            return _cardController.ShowCards(usertoken);
         }
 
         public string PutMethod()

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Npgsql;
 using SWE1_MTCG.Cards;
 using SWE1_MTCG.DataTransferObject;
+using SWE1_MTCG.Server;
 
 namespace SWE1_MTCG.Services
 {
@@ -60,6 +62,23 @@ namespace SWE1_MTCG.Services
         public string DeleteCard(Card card)
         {
             throw new NotImplementedException();
+        }
+
+        public string ShowCards(string usertoken)
+        {
+            User user = null;
+            List<string> cardList = new List<string>();
+            if (ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
+            {
+                ClientSingleton.GetInstance.ClientMap.TryGetValue(usertoken, out user);
+            }
+
+            foreach (var card in user.Stack.CardCollection)
+            {
+                cardList.Add(card.ToCardString());
+            }
+
+            return JsonSerializer.Serialize(cardList);
         }
     }
 }

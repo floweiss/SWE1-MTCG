@@ -16,7 +16,7 @@ namespace SWE1_MTCG.Api
         private Regex _sessionRegex = new Regex(@"^/sessions/?\d*$");
         private Regex _cardRegex = new Regex(@"^/cards/?\d*$");
         private Regex _packageRegex = new Regex(@"^/packages/?\d*$");
-        private Regex _TransactionPackageRegex = new Regex(@"^/transactions/packages/?\d*$");
+        private Regex _transactionPackageRegex = new Regex(@"^/transactions/packages/?\d*$");
 
         public IApi GetApi(RequestContext request)
         {
@@ -40,7 +40,7 @@ namespace SWE1_MTCG.Api
             {
                 return new PackageApi(request);
             }
-            if (_TransactionPackageRegex.IsMatch(request.RequestedResource))
+            if (_transactionPackageRegex.IsMatch(request.RequestedResource))
             {
                 return new TransactionPackageApi(request);
             }

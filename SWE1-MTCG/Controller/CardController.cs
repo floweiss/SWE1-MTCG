@@ -26,5 +26,10 @@ namespace SWE1_MTCG.Controller
         {
             return "POST ERR - No delete";
         }
+
+        public string ShowCards(string usertoken)
+        {
+            return _cardService.ShowCards(usertoken);
+        }
     }
 }

@@ -38,13 +38,13 @@ namespace SWE1_MTCG.Api
         {
             if (!_request.CustomHeader.TryGetValue("Authorization", out _usertoken))
             {
-                return "POST ERR - no authorization header";
+                return "POST ERR - No authorization header";
             }
 
             _usertoken = _usertoken.Substring(6, _usertoken.Length - 6);
             if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(_usertoken))
             {
-                return "POST ERR - not logged in";
+                return "POST ERR - Not logged in";
             }
             
             switch (_request.HttpMethod)

@@ -12,5 +12,6 @@ namespace SWE1_MTCG.Cards
         public double Damage { get; set; }
         public ElementType Type { get; protected set; }
         public abstract bool CompareDamage(double damage);
+        public abstract string ToCardString();
     }
 }

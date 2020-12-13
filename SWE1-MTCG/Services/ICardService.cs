@@ -11,5 +11,7 @@ namespace SWE1_MTCG.Services
         string CreateCard(CardDTO card);
 
         string DeleteCard(Card card);
+
+        string ShowCards(string usertoken);
     }
 }

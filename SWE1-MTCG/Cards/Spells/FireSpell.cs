@@ -20,5 +20,10 @@ namespace SWE1_MTCG.Cards.Spells
         {
             return Damage >= damage;
         }
+
+        public override string ToCardString()
+        {
+            return "Card ID " + ID + ": Spell of Element " + Type + " with Damage " + Damage;
+        }
     }
 }

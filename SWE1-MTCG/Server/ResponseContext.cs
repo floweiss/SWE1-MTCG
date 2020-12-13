@@ -31,6 +31,11 @@ namespace SWE1_MTCG.Server
                 StatusCode = 404;
                 StatusString = "Not Found";
             }
+            else if (Content.EndsWith("ERR - No authorization header") || Content.EndsWith("ERR - Not logged in") || Content.EndsWith("ERR - Login failed"))
+            {
+                StatusCode = 401;
+                StatusString = "Unauthorized";
+            }
             else if (Content.Equals("Method ERR") || Content.Equals("Resource ERR"))
             {
                 StatusCode = 501;
