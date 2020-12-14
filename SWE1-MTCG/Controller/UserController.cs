@@ -38,5 +38,15 @@ namespace SWE1_MTCG.Controller
         {
             return _userService.AquirePackage(usertoken, package.PackageId);
         }
+
+        public string ShowBio(string username)
+        {
+            return _userService.ShowBio(username);
+        }
+
+        public string EditBio(UserBioDTO userBio, string user)
+        {
+            return _userService.EditBio(userBio, user);
+        }
     }
 }

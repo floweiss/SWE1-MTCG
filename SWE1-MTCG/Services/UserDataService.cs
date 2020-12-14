@@ -90,6 +90,8 @@ namespace SWE1_MTCG.Services
             }
             reader.Close();
 
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS cards(id VARCHAR(255), name VARCHAR(255), cardtype VARCHAR(255), element VARCHAR(255), damage DOUBLE PRECISION)";
+            cmd.ExecuteNonQuery();
             string sqlAllCards = "SELECT * FROM cards";
             using NpgsqlCommand cmdCards = new NpgsqlCommand(sqlAllCards, con);
             using NpgsqlDataReader readerCards = cmdCards.ExecuteReader();

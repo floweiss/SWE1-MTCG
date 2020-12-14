@@ -50,7 +50,7 @@ namespace SWE1_MTCG.Api
 
         public string PostMethod()
         {
-            if (!_request.CustomHeader.ContainsKey("Content-Type") || _request.CustomHeader["Content-Type"] != "application/json")
+            if (!_request.CustomHeader.ContainsKey("Content-Type") || _request.CustomHeader["Content-Type"] != "application/json" || _cardIds == null)
             {
                 return "POST ERR - Request not in JSON Format";
             }
@@ -88,7 +88,7 @@ namespace SWE1_MTCG.Api
                 return "GET ERR - Not logged in";
             }
 
-            return _deckController.ShowDeck(usertoken);
+            return _deckController.ShowDeck(usertoken, _request.RequestedResource.EndsWith("?format=plain"));
         }
 
         public string PutMethod()

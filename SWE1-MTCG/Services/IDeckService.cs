@@ -8,7 +8,7 @@ namespace SWE1_MTCG.Services
 {
     public interface IDeckService
     {
-        string ShowDeck(string usertoken);
+        string ShowDeck(string usertoken, bool showPlain);
 
         string ConfigureDeck(string usertoken, List<string> cardIds);
     }

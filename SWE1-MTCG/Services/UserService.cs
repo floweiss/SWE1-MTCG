@@ -23,7 +23,7 @@ namespace SWE1_MTCG.Services
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255))";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255), fullname VARCHAR(255), bio VARCHAR(255), image VARCHAR(255))";
             cmd.ExecuteNonQuery();
 
             string sqlCheckUser = "SELECT * FROM users";
@@ -38,11 +38,14 @@ namespace SWE1_MTCG.Services
             }
             reader.Close();
 
-            var sql = "INSERT INTO users (username, password) VALUES (@username, @password)";
+            var sql = "INSERT INTO users (username, password, fullname, bio, image) VALUES (@username, @password, @fullname, @bio, @image)";
             using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sql, con))
             {
                 cmdPrepared.Parameters.AddWithValue("username", user.Username);
                 cmdPrepared.Parameters.AddWithValue("password", user.HashedPW);
+                cmdPrepared.Parameters.AddWithValue("fullname", user.Username.ToUpper());
+                cmdPrepared.Parameters.AddWithValue("bio", "Default Bio");
+                cmdPrepared.Parameters.AddWithValue("image", "Default Image");
                 cmdPrepared.ExecuteNonQuery();
             }
 
@@ -57,7 +60,7 @@ namespace SWE1_MTCG.Services
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255))";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255), fullname VARCHAR(255), bio VARCHAR(255), image VARCHAR(255))";
             cmd.ExecuteNonQuery();
 
             string sqlCheckUser = "SELECT * FROM users";
@@ -100,7 +103,7 @@ namespace SWE1_MTCG.Services
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255))";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255), fullname VARCHAR(255), bio VARCHAR(255), image VARCHAR(255))";
             cmd.ExecuteNonQuery();
 
             string sqlCheckUser = "SELECT * FROM users";
@@ -173,6 +176,55 @@ namespace SWE1_MTCG.Services
             readerCards.Close();
             _userDataService.PersistUserData(user, usertoken);
             return "POST OK";
+        }
+
+        public string ShowBio(string username)
+        {
+            using NpgsqlConnection con = new NpgsqlConnection(_cs);
+            con.Open();
+
+            using NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS users(username VARCHAR(255), password VARCHAR(255), fullname VARCHAR(255), bio VARCHAR(255), image VARCHAR(255))";
+            cmd.ExecuteNonQuery();
+
+            string sqlCheckUser = "SELECT * FROM users";
+            using NpgsqlCommand cmdCheckUser = new NpgsqlCommand(sqlCheckUser, con);
+            using NpgsqlDataReader reader = cmdCheckUser.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.GetString(0) == username)
+                {
+                    Dictionary<string, string> userList = new Dictionary<string, string>();
+                    userList.Add("Username", reader.GetString(0));
+                    userList.Add("Full Name", reader.GetString(2));
+                    userList.Add("Bio", reader.GetString(3));
+                    userList.Add("Image", reader.GetString(4));
+
+                    return JsonSerializer.Serialize(userList);
+                }
+            }
+            reader.Close();
+            return "GET ERR - User does not exist";
+        }
+
+        public string EditBio(UserBioDTO userBio, string user)
+        {
+            using NpgsqlConnection con = new NpgsqlConnection(_cs);
+            con.Open();
+
+            string sqlUpdate =
+                "UPDATE users SET fullname = @fullname, bio = @bio, image = @image WHERE username = @findUser";
+            using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlUpdate, con))
+            {
+                cmdPrepared.Parameters.AddWithValue("fullname", userBio.Name);
+                cmdPrepared.Parameters.AddWithValue("bio", userBio.Bio);
+                cmdPrepared.Parameters.AddWithValue("image", userBio.Image);
+                cmdPrepared.Parameters.AddWithValue("findUser", user);
+                cmdPrepared.ExecuteNonQuery();
+            }
+
+            return "PUT OK by DB";
         }
     }
 }

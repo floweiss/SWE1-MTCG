@@ -17,7 +17,7 @@ namespace SWE1_MTCG.Services
         private IUserDataService _userDataService = new UserDataService();
         private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
 
-        public string ShowDeck(string usertoken)
+        public string ShowDeck(string usertoken, bool showPlain)
         {
             User user = null;
             List<string> cardList = new List<string>();
@@ -31,6 +31,16 @@ namespace SWE1_MTCG.Services
                 cardList.Add(card.ToCardString());
             }
 
+            if (showPlain)
+            {
+                string plainText = "";
+                foreach (var card in cardList)
+                {
+                    plainText += (card + "\n");
+                }
+
+                return plainText;
+            }
             return JsonSerializer.Serialize(cardList);
         }
 

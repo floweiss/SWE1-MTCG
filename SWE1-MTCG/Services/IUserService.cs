@@ -17,5 +17,9 @@ namespace SWE1_MTCG.Services
         bool IsRegistered(User user);
 
         string AquirePackage(string usertoken, string packageId);
+
+        string ShowBio(string username);
+
+        string EditBio(UserBioDTO userBio, string user);
     }
 }

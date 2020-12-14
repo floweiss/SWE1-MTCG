@@ -11,13 +11,13 @@ namespace SWE1_MTCG.Api
     public class ApiService : IApiService
     {
         private IFileService _fileService = new FileService();
-        private Regex _messageRegex = new Regex(@"^/messages/?\d*$");
-        private Regex _userRegex = new Regex(@"^/users/?\d*$");
-        private Regex _sessionRegex = new Regex(@"^/sessions/?\d*$");
-        private Regex _cardRegex = new Regex(@"^/cards/?\d*$");
-        private Regex _packageRegex = new Regex(@"^/packages/?\d*$");
-        private Regex _transactionPackageRegex = new Regex(@"^/transactions/packages/?\d*$");
-        private Regex _deckRegex = new Regex(@"^/deck/?\d*$");
+        private Regex _messageRegex = new Regex(@"^/messages/?\w*$");
+        private Regex _userRegex = new Regex(@"^/users/?\w*$");
+        private Regex _sessionRegex = new Regex(@"^/sessions/?\w*$");
+        private Regex _cardRegex = new Regex(@"^/cards/?\w*$");
+        private Regex _packageRegex = new Regex(@"^/packages/?\w*$");
+        private Regex _transactionPackageRegex = new Regex(@"^/transactions/packages/?\w*$");
+        private Regex _deckRegex = new Regex(@"^/deck[/?]?[\w\D]*$");
 
         public IApi GetApi(RequestContext request)
         {

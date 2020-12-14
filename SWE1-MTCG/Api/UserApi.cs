@@ -14,6 +14,7 @@ namespace SWE1_MTCG.Api
         private RequestContext _request;
         private UserController _userController;
         private UserDTO _userdata;
+        private UserBioDTO _userBio;
 
         public UserApi(RequestContext request)
         {
@@ -26,7 +27,16 @@ namespace SWE1_MTCG.Api
             {
                 _userdata = null;
             }
-            
+
+            try
+            {
+                _userBio = JsonSerializer.Deserialize<UserBioDTO>(_request.Content);
+            }
+            catch (Exception e)
+            {
+                _userBio = null;
+            }
+
             IUserService userService = new UserService();
             _userController = new UserController(userService);
         }
@@ -37,6 +47,12 @@ namespace SWE1_MTCG.Api
             {
                 case "POST":
                     return PostMethod();
+
+                case "GET":
+                    return GetMethod();
+
+                case "PUT":
+                    return PutMethod();
 
                 default:
                     return "Method ERR";
@@ -58,12 +74,43 @@ namespace SWE1_MTCG.Api
 
         public string GetMethod()
         {
-            throw new NotImplementedException();
+            string usertoken;
+            if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
+            {
+                return "GET ERR - No authorization header";
+            }
+
+            usertoken = usertoken.Substring(6, usertoken.Length - 6);
+            if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
+            {
+                return "GET ERR - Not logged in";
+            }
+
+            string user = _request.RequestedResource.Substring(7, _request.RequestedResource.Length - 7);
+            return _userController.ShowBio(user);
         }
 
         public string PutMethod()
         {
-            throw new NotImplementedException();
+            string usertoken;
+            if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
+            {
+                return "PUT ERR - No authorization header";
+            }
+
+            usertoken = usertoken.Substring(6, usertoken.Length - 6);
+            if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
+            {
+                return "PUT ERR - Not logged in";
+            }
+
+            string user = _request.RequestedResource.Substring(7, _request.RequestedResource.Length - 7);
+            if (usertoken.Substring(0, usertoken.IndexOf('-')) != user)
+            {
+                return "PUT ERR - Can't edit data from other user";
+            }
+
+            return _userController.EditBio(_userBio, user);
         }
 
         public string DeleteMethod()
