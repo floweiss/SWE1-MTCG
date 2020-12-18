@@ -43,6 +43,9 @@ namespace SWE1_MTCG.Api
                 case "GET":
                     return GetMethod();
 
+                case "PUT":
+                    return PutMethod();
+
                 default:
                     return "Method ERR";
             }

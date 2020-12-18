@@ -18,6 +18,8 @@ namespace SWE1_MTCG.Api
         private Regex _packageRegex = new Regex(@"^/packages/?\w*$");
         private Regex _transactionPackageRegex = new Regex(@"^/transactions/packages/?\w*$");
         private Regex _deckRegex = new Regex(@"^/deck[/?]?[\w\D]*$");
+        private Regex _statsRegex = new Regex(@"^/stats/?\w*$");
+        private Regex _scoreRegex = new Regex(@"^/score/?\w*$");
 
         public IApi GetApi(RequestContext request)
         {
@@ -48,6 +50,14 @@ namespace SWE1_MTCG.Api
             if (_deckRegex.IsMatch(request.RequestedResource))
             {
                 return new DeckApi(request);
+            }
+            if (_statsRegex.IsMatch(request.RequestedResource))
+            {
+                return new StatsApi(request);
+            }
+            if (_scoreRegex.IsMatch(request.RequestedResource))
+            {
+                return new ScoreApi(request);
             }
 
             return null;

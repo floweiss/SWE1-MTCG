@@ -41,7 +41,14 @@ namespace SWE1_MTCG.Server
                         int location = spliced[headerNr].IndexOf(':');
                         string key = spliced[headerNr].Substring(0, location);
                         string value = spliced[headerNr].Substring((location + 2), (spliced[headerNr].Length-location-2));
-                        CustomHeader.Add(key, value);
+                        try
+                        {
+                            CustomHeader.Add(key, value);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
                 }
                 else
