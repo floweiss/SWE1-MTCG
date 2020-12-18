@@ -21,7 +21,7 @@ namespace SWE1_MTCG.Services
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS userdata(token VARCHAR(255), coins INTEGER, deck VARCHAR(255), stack VARCHAR(800))";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS userdata(token VARCHAR(255), coins INTEGER, elo INTEGER, deck VARCHAR(255), stack VARCHAR(800))";
             cmd.ExecuteNonQuery();
 
             string sqlCheckUser = "SELECT * FROM userdata";
@@ -39,12 +39,13 @@ namespace SWE1_MTCG.Services
             if (updateUser)
             {
                 string sqlUpdate =
-                    "UPDATE userdata SET token = @token, coins = @coins, deck = @deck, stack = @stack WHERE token = @findToken";
+                    "UPDATE userdata SET token = @token, coins = @coins, elo = @elo, deck = @deck, stack = @stack WHERE token = @findToken";
                 using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlUpdate, con))
                 {
                     cmdPrepared.Parameters.AddWithValue("token", usertoken);
                     cmdPrepared.Parameters.AddWithValue("findToken", usertoken);
                     cmdPrepared.Parameters.AddWithValue("coins", user.Coins);
+                    cmdPrepared.Parameters.AddWithValue("elo", user.ELO);
                     cmdPrepared.Parameters.AddWithValue("deck", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Deck.ToCardIds()) + "}");
                     cmdPrepared.Parameters.AddWithValue("stack", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Stack.ToCardIds()) + "}");
                     cmdPrepared.ExecuteNonQuery();
@@ -52,11 +53,12 @@ namespace SWE1_MTCG.Services
             }
             else
             {
-                var sqlInsert = "INSERT INTO userdata (token, coins, deck, stack) VALUES (@token, @coins, @deck, @stack)";
+                var sqlInsert = "INSERT INTO userdata (token, coins, elo, deck, stack) VALUES (@token, @coins, @elo, @deck, @stack)";
                 using (NpgsqlCommand cmdPrepared = new NpgsqlCommand(sqlInsert, con))
                 {
                     cmdPrepared.Parameters.AddWithValue("token", usertoken);
                     cmdPrepared.Parameters.AddWithValue("coins", user.Coins);
+                    cmdPrepared.Parameters.AddWithValue("elo", user.ELO);
                     cmdPrepared.Parameters.AddWithValue("deck", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Deck.ToCardIds()) + "}");
                     cmdPrepared.Parameters.AddWithValue("stack", "{ \"CardIds\":" + JsonSerializer.Serialize(user.Stack.ToCardIds()) + "}");
                     cmdPrepared.ExecuteNonQuery();
@@ -71,7 +73,7 @@ namespace SWE1_MTCG.Services
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS userdata(token VARCHAR(255), coins INTEGER, deck VARCHAR(255), stack VARCHAR(800))";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS userdata(token VARCHAR(255), coins INTEGER, elo INTEGER, deck VARCHAR(255), stack VARCHAR(800))";
             cmd.ExecuteNonQuery();
 
             string sqlCheckUser = "SELECT * FROM userdata";
@@ -84,8 +86,9 @@ namespace SWE1_MTCG.Services
                 if (reader.GetString(0) == usertoken)
                 {
                     user.Coins = reader.GetInt32(1);
-                    deckIds = JsonSerializer.Deserialize<CardIdsDTO>(reader.GetString(2)).CardIds;
-                    stackIds = JsonSerializer.Deserialize<CardIdsDTO>(reader.GetString(3)).CardIds;
+                    user.ELO = reader.GetInt32(2);
+                    deckIds = JsonSerializer.Deserialize<CardIdsDTO>(reader.GetString(3)).CardIds;
+                    stackIds = JsonSerializer.Deserialize<CardIdsDTO>(reader.GetString(4)).CardIds;
                 }
             }
             reader.Close();

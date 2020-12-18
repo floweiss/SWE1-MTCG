@@ -12,6 +12,7 @@ namespace SWE1_MTCG
         private string _password;
         public string HashedPW;
         public int Coins;
+        public int ELO;
         public CardDeck Deck;
         public CardStack Stack;
 
@@ -21,6 +22,7 @@ namespace SWE1_MTCG
             _password = password;
             HashedPW = Hash(password);
             Coins = 20;
+            ELO = 100;
             Deck = new CardDeck();
             Stack = new CardStack();
         }

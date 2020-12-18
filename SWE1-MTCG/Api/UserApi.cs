@@ -86,6 +86,12 @@ namespace SWE1_MTCG.Api
                 return "GET ERR - Not logged in";
             }
 
+            string userName = _request.RequestedResource.Substring(7, _request.RequestedResource.Length - 7);
+            if (usertoken.Substring(0, usertoken.IndexOf('-')) != userName)
+            {
+                return "GET ERR - Can't view data from other user";
+            }
+
             string user = _request.RequestedResource.Substring(7, _request.RequestedResource.Length - 7);
             return _userController.ShowBio(user);
         }
@@ -108,6 +114,15 @@ namespace SWE1_MTCG.Api
             if (usertoken.Substring(0, usertoken.IndexOf('-')) != user)
             {
                 return "PUT ERR - Can't edit data from other user";
+            }
+
+            if (!_request.CustomHeader.ContainsKey("Content-Type") || _request.CustomHeader["Content-Type"] != "application/json")
+            {
+                return "PUT ERR - Request not in JSON Format";
+            }
+            else if (string.IsNullOrWhiteSpace(_userBio.Name) || string.IsNullOrWhiteSpace(_userBio.Bio) || string.IsNullOrWhiteSpace(_userBio.Image))
+            {
+                return "PUT ERR - Name, Bio or Image are empty";
             }
 
             return _userController.EditBio(_userBio, user);

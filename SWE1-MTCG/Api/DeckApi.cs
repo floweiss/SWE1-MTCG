@@ -62,16 +62,16 @@ namespace SWE1_MTCG.Api
             string usertoken;
             if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
             {
-                return "GET ERR - No authorization header";
+                return "POST ERR - No authorization header";
             }
 
             usertoken = usertoken.Substring(6, usertoken.Length - 6);
             if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
             {
-                return "GET ERR - Not logged in";
+                return "POST ERR - Not logged in";
             }
 
-            return _deckController.ConfigureDeck(usertoken, _cardIds);
+            return _deckController.ConfigureDeck(usertoken, _cardIds, false);
         }
 
         public string GetMethod()
@@ -93,7 +93,28 @@ namespace SWE1_MTCG.Api
 
         public string PutMethod()
         {
-            throw new NotImplementedException();
+            if (!_request.CustomHeader.ContainsKey("Content-Type") || _request.CustomHeader["Content-Type"] != "application/json" || _cardIds == null)
+            {
+                return "PUT ERR - Request not in JSON Format";
+            }
+            else if (_cardIds.CardIds.Count == 0 || _cardIds.CardIds.Count > 4)
+            {
+                return "PUT ERR - Zero or too many (max. 4) CardIDs in Request";
+            }
+
+            string usertoken;
+            if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
+            {
+                return "PUT ERR - No authorization header";
+            }
+
+            usertoken = usertoken.Substring(6, usertoken.Length - 6);
+            if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
+            {
+                return "PUT ERR - Not logged in";
+            }
+
+            return _deckController.ConfigureDeck(usertoken, _cardIds, true);
         }
 
         public string DeleteMethod()

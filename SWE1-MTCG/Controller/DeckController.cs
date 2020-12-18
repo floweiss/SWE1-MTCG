@@ -21,9 +21,9 @@ namespace SWE1_MTCG.Controller
             return _deckService.ShowDeck(usertoken, showPlain);
         }
 
-        public string ConfigureDeck(string usertoken, CardIdsDTO cardIds)
+        public string ConfigureDeck(string usertoken, CardIdsDTO cardIds, bool updateGranted)
         {
-            return _deckService.ConfigureDeck(usertoken, cardIds.CardIds);
+            return _deckService.ConfigureDeck(usertoken, cardIds.CardIds, updateGranted);
         }
     }
 }

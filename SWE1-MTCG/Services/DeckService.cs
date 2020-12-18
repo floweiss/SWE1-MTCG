@@ -44,7 +44,7 @@ namespace SWE1_MTCG.Services
             return JsonSerializer.Serialize(cardList);
         }
 
-        public string ConfigureDeck(string usertoken, List<string> cardIds)
+        public string ConfigureDeck(string usertoken, List<string> cardIds, bool updateGranted)
         {
             User user = null;
             if (ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
@@ -52,13 +52,14 @@ namespace SWE1_MTCG.Services
                 ClientSingleton.GetInstance.ClientMap.TryGetValue(usertoken, out user);
             }
 
-            if (user.Deck.CardCollection.Count != 0)
+            if (user.Deck.CardCollection.Count != 0 && !updateGranted)
             {
                 return "POST ERR - Deck already configured";
             }
             if (cardIds.Count !=4)
             {
-                return "POST ERR - Add 4 Cards to your Deck";
+                string message = updateGranted ? "PUT" : "POST";
+                return message + " ERR - Add 4 Cards to your Deck";
             }
 
             Card card;
@@ -68,9 +69,19 @@ namespace SWE1_MTCG.Services
                 card = user.Stack.GetCard(cardId);
                 if ((card == null)) // || user.Deck.IsCardInDeck(card)) -- does not matter if card already in Deck
                 {
-                    return "POST ERR - At least one CardID not found in Stack"; // or Card already in Deck";
+                    string message = updateGranted ? "PUT" : "POST";
+                    return message + " ERR - At least one CardID not found in Stack"; // or Card already in Deck";
                 }
                 cardsToAdd.Add(card);
+            }
+
+            if (updateGranted)
+            {
+                user.Deck.CardCollection.Clear();
+                foreach (var cardToAdd in cardsToAdd)
+                {
+                    user.Stack.AddCard(cardToAdd);
+                }
             }
 
             foreach (var cardToAdd in cardsToAdd)
@@ -80,7 +91,8 @@ namespace SWE1_MTCG.Services
             }
 
             _userDataService.PersistUserData(user, usertoken);
-            return "POST OK - Cards added to Deck";
+            string messageReturn = updateGranted ? "PUT" : "POST";
+            return messageReturn + " OK - Cards added to Deck";
         }
     }
 }

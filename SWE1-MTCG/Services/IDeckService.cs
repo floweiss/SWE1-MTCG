@@ -10,6 +10,6 @@ namespace SWE1_MTCG.Services
     {
         string ShowDeck(string usertoken, bool showPlain);
 
-        string ConfigureDeck(string usertoken, List<string> cardIds);
+        string ConfigureDeck(string usertoken, List<string> cardIds, bool updateGranted);
     }
 }

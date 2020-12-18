@@ -58,6 +58,18 @@ namespace SWE1_MTCG.Api
                 return "POST ERR - No valid Card";
             }
 
+            string usertoken;
+            if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
+            {
+                return "POST ERR - No authorization header";
+            }
+
+            usertoken = usertoken.Substring(6, usertoken.Length - 6);
+            if (usertoken != "admin-mtcgToken")
+            {
+                return "POST ERR - No admin rights";
+            }
+
             return _cardController.CreateCard(_card);
         }
 
