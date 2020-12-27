@@ -56,7 +56,7 @@ namespace SWE1_MTCG.Services
             {
                 return "POST ERR - Deck already configured";
             }
-            if (cardIds.Count !=4)
+            if (cardIds.Count != 4)
             {
                 string message = updateGranted ? "PUT" : "POST";
                 return message + " ERR - Add 4 Cards to your Deck";
@@ -64,6 +64,21 @@ namespace SWE1_MTCG.Services
 
             Card card;
             List<Card> cardsToAdd = new List<Card>();
+
+            List<Card> cardsToRemove = new List<Card>();
+            if (updateGranted)
+            {
+                foreach (var cardRemoved in user.Deck.CardCollection)
+                {
+                    cardsToRemove.Add(cardRemoved);
+                    user.Stack.AddCard(cardRemoved);
+                }
+                foreach (var cardRemoved in cardsToRemove)
+                {
+                    user.Deck.RemoveCard(cardRemoved);
+                }
+            }
+
             foreach (var cardId in cardIds)
             {
                 card = user.Stack.GetCard(cardId);
@@ -73,15 +88,6 @@ namespace SWE1_MTCG.Services
                     return message + " ERR - At least one CardID not found in Stack"; // or Card already in Deck";
                 }
                 cardsToAdd.Add(card);
-            }
-
-            if (updateGranted)
-            {
-                user.Deck.CardCollection.Clear();
-                foreach (var cardToAdd in cardsToAdd)
-                {
-                    user.Stack.AddCard(cardToAdd);
-                }
             }
 
             foreach (var cardToAdd in cardsToAdd)
