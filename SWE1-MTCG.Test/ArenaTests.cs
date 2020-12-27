@@ -54,7 +54,7 @@ namespace SWE1_MTCG.Test
         [TestCase(0)]
         public void TestBattleServiceReturnsRightResult(int result)
         {
-            _arenaServiceMock.Setup(s => s.Battle(_user1, _user2)).Returns(result);
+            _arenaServiceMock.Setup(s => s.Battle(_user1, _user2)).Returns(Tuple.Create(result, "Battle Log"));
 
             _arenaController.StartBattle(_arena);
 
@@ -93,7 +93,7 @@ namespace SWE1_MTCG.Test
             _user2.AddCardToDeck("Water Whirl");
 
             arenaService.Battle(_user1, _user2);
-            int user1wins = arenaService.Battle(_user1, _user2);
+            int user1wins = arenaService.Battle(_user1, _user2).Item1;
 
             Assert.AreEqual(1, user1wins);
         }

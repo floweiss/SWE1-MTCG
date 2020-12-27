@@ -15,6 +15,7 @@ namespace SWE1_MTCG
         public int ELO;
         public CardDeck Deck;
         public CardStack Stack;
+        public bool ReadyForBattle;
 
         public User(string username, string password)
         {
@@ -25,6 +26,12 @@ namespace SWE1_MTCG
             ELO = 100;
             Deck = new CardDeck();
             Stack = new CardStack();
+            ReadyForBattle = false;
+        }
+
+        public User()
+        {
+
         }
 
         // https://arcanecode.com/2007/03/21/encoding-strings-to-base64-in-c/
@@ -58,6 +65,15 @@ namespace SWE1_MTCG
         public void RemoveCardFromDeck(string cardName)
         {
             Deck.RemoveCardByName(cardName);
+        }
+        public void SetReadyForBattle()
+        {
+            ReadyForBattle = true;
+        }
+
+        public void SetNotReadyForBattle()
+        {
+            ReadyForBattle = false;
         }
     }
 }

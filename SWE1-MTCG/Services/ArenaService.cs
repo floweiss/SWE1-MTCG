@@ -8,22 +8,33 @@ using SWE1_MTCG.Cards;
 using SWE1_MTCG.Cards.Monsters;
 using SWE1_MTCG.Enums;
 using SWE1_MTCG.Interfaces;
+using SWE1_MTCG.Server;
 
 namespace SWE1_MTCG.Services
 {
     public class ArenaService : IArenaService
     {
         private ElementEffectivenessService _elementEffectivenessService;
+        private IUserDataService _userDataService;
 
         public ArenaService(ElementEffectivenessService elementEffectivenessService)
         {
             _elementEffectivenessService = elementEffectivenessService;
+            _userDataService = new UserDataService();
         }
 
-        public int Battle(User user1, User user2)
+        public Tuple<int, string> Battle(User user1, User user2)
         {
-            CardDeck deck1 = user1.Deck;
-            CardDeck deck2 = user2.Deck;
+            CardDeck deck1 = new CardDeck();
+            foreach (var card in user1.Deck.CardCollection)
+            {
+                deck1.AddCard(card);
+            }
+            CardDeck deck2 = new CardDeck();
+            foreach (var card in user2.Deck.CardCollection)
+            {
+                deck2.AddCard(card);
+            }
 
             Random random = new Random();
             int roundNumber;
@@ -36,16 +47,17 @@ namespace SWE1_MTCG.Services
                 roundNumber = 1;
             }
 
+            string battleLog = "";
             while (deck1.CardCollection.Count > 0 && deck2.CardCollection.Count > 0 && roundNumber < 100)
             {
-                Console.Write(roundNumber + ": ");
+                battleLog += ("Round " + roundNumber + ": ");
                 if (roundNumber % 2 == 0)
                 {
-                    Round(ref deck1, ref deck2);
+                    battleLog += Round(ref deck1, ref deck2, user1.Username, user2.Username) + "\n";
                 }
                 else
                 {
-                    Round(ref deck2, ref deck1);
+                    battleLog += Round(ref deck2, ref deck1, user2.Username, user1.Username) + "\n";
                 }
 
                 roundNumber++;
@@ -53,20 +65,20 @@ namespace SWE1_MTCG.Services
 
             if (roundNumber == 100)
             {
-                return 0;
+                battleLog = "DRAW\n\n" + battleLog;
+                return Tuple.Create(0, battleLog);
             }
-            return (deck1.CardCollection.Count > deck2.CardCollection.Count ? 1 : -1);
+            return (deck1.CardCollection.Count > deck2.CardCollection.Count ? Tuple.Create(1, user1.Username + " WON\n\n" + battleLog) : Tuple.Create(-1, user2.Username + " WON\n\n" + battleLog));
         }
 
-        private void Round(ref CardDeck deck1, ref CardDeck deck2)
+        private string Round(ref CardDeck deck1, ref CardDeck deck2, string username1, string username2)
         {
             Card card1 = deck1.GetRandomCard();
             Card card2 = deck2.GetRandomCard();
             card1.Damage = card1.Damage * _elementEffectivenessService.CompareElements(card1.Type, card2.Type);
             card2.Damage = card2.Damage * _elementEffectivenessService.CompareElements(card2.Type, card1.Type);
 
-            // ToDo: implement special abilities
-
+            // without special abilities
             /*int card1wins = card1 switch
             {
                 IMonster monster => monster.CompareDamage(card2.Damage) ? 1 : -1, 
@@ -82,22 +94,25 @@ namespace SWE1_MTCG.Services
                 _ => FightSpellSpell(card1, card2)
             };
 
+            string roundLog;
             if (card1wins == 1)
             {
                 deck1.AddCard(card2, true);
                 deck2.RemoveCard(card2);
-                Console.WriteLine(card1.Name + " won against " + card2.Name);
+                roundLog = (card1.Name + " won against " + card2.Name);
             }
             else if (card1wins == -1)
             {
                 deck2.AddCard(card1, true);
                 deck1.RemoveCard(card1);
-                Console.WriteLine(card1.Name + " lost against " + card2.Name);
+                roundLog = (card1.Name + " lost against " + card2.Name);
             }
             else
             {
-                Console.WriteLine(card1.Name + " drew with " + card2.Name);
+                roundLog = (card1.Name + " drew with " + card2.Name);
             }
+
+            return roundLog;
         }
 
         private int FightMonsterMonster(Card card1, Card card2)
@@ -136,7 +151,13 @@ namespace SWE1_MTCG.Services
 
         public void UpdateUserStats(User winner, User loser)
         {
-            throw new NotImplementedException();
+            winner.ELO = winner.ELO + 3;
+            loser.ELO = loser.ELO - 5;
+
+            ClientSingleton.GetInstance.ClientMap.AddOrUpdate(winner.Username+"-mtcgToken", winner, (key, oldValue) => winner);
+            ClientSingleton.GetInstance.ClientMap.AddOrUpdate(loser.Username + "-mtcgToken", loser, (key, oldValue) => loser);
+            _userDataService.PersistUserData(winner, winner.Username+"-mtcgToken");
+            _userDataService.PersistUserData(loser, loser.Username + "-mtcgToken");
         }
     }
 }

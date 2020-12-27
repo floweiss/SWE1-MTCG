@@ -16,11 +16,11 @@ namespace SWE1_MTCG.Controller
             _arenaService = arenaService;
         }
 
-        public void StartBattle(Arena arena)
+        public string StartBattle(Arena arena)
         {
-            int battleResult = _arenaService.Battle(arena.User1, arena.User2);
+            Tuple<int, string> battleResult = _arenaService.Battle(arena.User1, arena.User2);
 
-            switch (battleResult)
+            switch (battleResult.Item1)
             {
                 case 1:
                     _arenaService.UpdateUserStats(arena.User1, arena.User2);
@@ -29,6 +29,8 @@ namespace SWE1_MTCG.Controller
                     _arenaService.UpdateUserStats(arena.User2, arena.User1);
                     break;
             }
+
+            return battleResult.Item2;
         }
 
     }
