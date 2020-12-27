@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Text.Json;
 using System.Xml;
 using SWE1_MTCG.Cards;
 using SWE1_MTCG.Cards.Monsters;
@@ -47,28 +48,40 @@ namespace SWE1_MTCG.Services
                 roundNumber = 1;
             }
 
-            string battleLog = "";
+            Dictionary<string, string> battleLog = new Dictionary<string, string>();
+            battleLog.Add("Result", "");
             while (deck1.CardCollection.Count > 0 && deck2.CardCollection.Count > 0 && roundNumber < 100)
             {
-                battleLog += ("Round " + roundNumber + ": ");
+                string roundLog = "";
                 if (roundNumber % 2 == 0)
                 {
-                    battleLog += Round(ref deck1, ref deck2, user1.Username, user2.Username) + "\n";
+                    roundLog += Round(ref deck1, ref deck2, user1.Username, user2.Username);
                 }
                 else
                 {
-                    battleLog += Round(ref deck2, ref deck1, user2.Username, user1.Username) + "\n";
+                    roundLog += Round(ref deck2, ref deck1, user2.Username, user1.Username);
                 }
+                battleLog.Add("Round "+ roundNumber, roundLog);
 
                 roundNumber++;
             }
 
             if (roundNumber == 100)
             {
-                battleLog = "DRAW\n\n" + battleLog;
-                return Tuple.Create(0, battleLog);
+                battleLog["Result"] = "DRAW";
+                return Tuple.Create(0, JsonSerializer.Serialize(battleLog));
             }
-            return (deck1.CardCollection.Count > deck2.CardCollection.Count ? Tuple.Create(1, user1.Username + " WON\n\n" + battleLog) : Tuple.Create(-1, user2.Username + " WON\n\n" + battleLog));
+
+            if (deck1.CardCollection.Count > deck2.CardCollection.Count)
+            {
+                battleLog["Result"] = user1.Username + " won against " + user2.Username;
+                return Tuple.Create(1, JsonSerializer.Serialize(battleLog));
+            }
+            else
+            {
+                battleLog["Result"] = user2.Username + " won against " + user1.Username;
+                return Tuple.Create(-1, JsonSerializer.Serialize(battleLog));
+            }
         }
 
         private string Round(ref CardDeck deck1, ref CardDeck deck2, string username1, string username2)
@@ -99,17 +112,17 @@ namespace SWE1_MTCG.Services
             {
                 deck1.AddCard(card2, true);
                 deck2.RemoveCard(card2);
-                roundLog = (card1.Name + " won against " + card2.Name);
+                roundLog = (card1.Name + " (" + username1 + ") won against " + card2.Name + " (" + username2 + ")");
             }
             else if (card1wins == -1)
             {
                 deck2.AddCard(card1, true);
                 deck1.RemoveCard(card1);
-                roundLog = (card1.Name + " lost against " + card2.Name);
+                roundLog = (card1.Name + " (" + username1 + ") lost to " + card2.Name + " (" + username2 + ")");
             }
             else
             {
-                roundLog = (card1.Name + " drew with " + card2.Name);
+                roundLog = (card1.Name + " (" + username1 + ") drew with " + card2.Name + " (" + username2 + ")");
             }
 
             return roundLog;
