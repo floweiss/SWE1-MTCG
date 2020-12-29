@@ -28,7 +28,7 @@ Link zum GitHub Repository: https://github.com/floweiss/SWE1-MTCG
     * Cards (ID, Name, CardType, Element, Damage)
     * Packages (ID, CardIDs)
     * Users (Username, Hashed PW, Fullname, Bio, Image)
-    * Userdata (Token, Coins, ELO. Deck-CardIDs, Stack-CardIDs)
+    * Userdata (Token, Coins, ELO, Deck-CardIDs, Stack-CardIDs)
 * Für die Speicherung von Daten aus dem ClientSingleton in die DB gibt es einen eigenen Service (UserDataService)
 
 ### Battle
