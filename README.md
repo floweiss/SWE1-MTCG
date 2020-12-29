@@ -2,7 +2,7 @@
 
 ## Allgemein
 
-Monster Card Trading Game von Florian Weiss im Zuge von SWE1
+Monster Card Trading Game von Florian Weiss im Zuge von SWE1  
 Link zum GitHub Repository: https://github.com/floweiss/SWE1-MTCG
 
 
