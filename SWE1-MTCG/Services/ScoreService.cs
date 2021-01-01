@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Npgsql;
 using SWE1_MTCG.Server;
@@ -39,15 +40,15 @@ namespace SWE1_MTCG.Services
             }
             reader.Close();
 
-            string scoresString = "";
             int place = 1;
+            Dictionary<string, string> scoresDictionary = new Dictionary<string, string>();
             foreach (var score in scores.OrderByDescending(key => key.Value))
             {
-                scoresString += (place + ". Place: " + score.Key + " with " + score.Value + " ELO\n");
+                scoresDictionary.Add(place + ". Place", score.Key + " with " + score.Value + " ELO");
                 place++;
             }
 
-            return scoresString;
+            return JsonSerializer.Serialize(scoresDictionary);
         }
     }
 }

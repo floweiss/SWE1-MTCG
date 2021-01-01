@@ -18,8 +18,7 @@ namespace SWE1_MTCG.Server
         public ResponseContext(RequestContext request, string content)
         {
             HttpVersion = request.HttpVersion;
-            //ContentType = "text/plain";
-            ContentType = (content.StartsWith("{") && content.EndsWith("}")) ? "application/json" : "text/plain";
+            ContentType = ((content.StartsWith("{") && content.EndsWith("}")) || (content.StartsWith("[") && content.EndsWith("]"))) ? "application/json" : "text/plain";
             ContentLength = content.Length;
             Content = content;
             if (Content.StartsWith("ERR") || Content.StartsWith("POST ERR"))
