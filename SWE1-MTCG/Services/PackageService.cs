@@ -46,7 +46,7 @@ namespace SWE1_MTCG.Services
             }
 
             con.Close();
-            return "POST OK by DB";
+            return "POST OK - Package created";
         }
 
         public string DeletePackage(CardPackage package)

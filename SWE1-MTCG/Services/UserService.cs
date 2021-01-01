@@ -50,7 +50,7 @@ namespace SWE1_MTCG.Services
             }
 
             con.Close();
-            return "POST OK by DB";
+            return "POST OK - User registered";
         }
 
         public string Login(User user)

@@ -56,7 +56,7 @@ namespace SWE1_MTCG.Services
             }
 
             con.Close();
-            return "POST OK by DB";
+            return "POST OK - Card created ";
         }
 
         public string DeleteCard(Card card)

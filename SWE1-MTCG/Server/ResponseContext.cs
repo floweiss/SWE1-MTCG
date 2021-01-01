@@ -18,7 +18,8 @@ namespace SWE1_MTCG.Server
         public ResponseContext(RequestContext request, string content)
         {
             HttpVersion = request.HttpVersion;
-            ContentType = "plain/text";
+            //ContentType = "text/plain";
+            ContentType = (content.StartsWith("{") && content.EndsWith("}")) ? "application/json" : "text/plain";
             ContentLength = content.Length;
             Content = content;
             if (Content.StartsWith("ERR") || Content.StartsWith("POST ERR"))
@@ -66,8 +67,8 @@ namespace SWE1_MTCG.Server
 
             response += HttpVersion + " " + StatusCode + " " + StatusString + "\n";
             response += "Via: Florian Weiss SWE1-MTCG-Server\n";
-            response += "Content CardType: " + ContentType + "\n";
-            response += "Content Length: " + ContentLength.ToString() + "\n\n";
+            response += "Content-type: " + ContentType + "\n";
+            response += "Content-length: " + ContentLength.ToString() + "\n\n";
             response += Content;
 
             return response;
