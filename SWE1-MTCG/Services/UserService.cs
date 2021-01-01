@@ -175,7 +175,7 @@ namespace SWE1_MTCG.Services
             user.AddCardsToStack(pack);
             readerCards.Close();
             _userDataService.PersistUserData(user, usertoken);
-            return "POST OK";
+            return "POST OK - Package aquired";
         }
 
         public string ShowBio(string username)
@@ -224,7 +224,7 @@ namespace SWE1_MTCG.Services
                 cmdPrepared.ExecuteNonQuery();
             }
 
-            return "PUT OK by DB";
+            return "PUT OK - Bio edited";
         }
     }
 }
