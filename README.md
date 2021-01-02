@@ -3,8 +3,20 @@
 ## Allgemein
 
 Monster Trading Cards Game (MTCG) von Florian Weiss im Zuge von SWE1  
-Link zum GitHub Repository: https://github.com/floweiss/SWE1-MTCG
-
+Link zum GitHub Repository: https://github.com/floweiss/SWE1-MTCG  
+Um die Applikation starten zu können, muss der Connection String für die DB je nach Setup angepasst werden
+```
+private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
+```
+  
+Dies muss in folgenden Files durchgeführt werden:
+* UserService.cs
+* UserDataService.cs
+* TradeService.cs
+* CardService.cs
+* PackageService.cs
+* DeckService.cs
+* ScoreService.cs
 
 
 ## Technische Schritte
