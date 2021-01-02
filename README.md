@@ -36,3 +36,15 @@ Link zum GitHub Repository: https://github.com/floweiss/SWE1-MTCG
 * Das Battle wird im Thread des zweiten Users durchgeführt und das resultierende Battle Log wird in einem Singleton (ArenaSingleton) gespeichert
 * Der erste User wartet in seinem Thread darauf, dass ein Eintrag in dem BattleLogs ConcurrentStack im Singleton gespeichert wird
 * Wenn etwas auf dem ConcurrentStack liegt wird dies als Battle Log für den ersten User verwendet und vom Stack entfernt
+
+
+
+## Tests
+### Unit Tests
+* Mit den Unit Tests wurde die grundlegende Funktion der wichtigsten Komponenten des Servers (Request- und Response-Context, ApiService) und des MTCG (Battle, Deck, Stack, ElementTypes, Cards, Trades) getestet
+* Weitere Unit Tests beinhalten das Testen der MessageApi, bei der die grundlegenden Funktionen einer API (HTTP-Methoden) getestet wurden
+* Die eigentlichen durchführenden Units (Services) wurden bei den MessageApi Tests gemockt, da diese wirklich auf das File-System bzw. beim MTCG auf die PostgreSQL Datenbank zugreifen und dies nicht wirklich testbar ist, deshalb wurde auch auf weitere API-Tests verzichtet
+
+### Integration Tests
+* Ein kompletter Test des MTCG wurde mittels eines curl Skriptes durchgeführt
+* Einzelne APIs wurden durch einzelne Requests mit dem Tool Postman getestet
