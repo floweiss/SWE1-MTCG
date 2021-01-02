@@ -21,6 +21,7 @@ namespace SWE1_MTCG.Api
         private Regex _statsRegex = new Regex(@"^/stats/?\w*$");
         private Regex _scoreRegex = new Regex(@"^/score/?\w*$");
         private Regex _battleRegex = new Regex(@"^/battles/?\w*$");
+        private Regex _tradeRegex = new Regex(@"^/tradings/?[\w-]*$");
 
         public IApi GetApi(RequestContext request)
         {
@@ -63,6 +64,10 @@ namespace SWE1_MTCG.Api
             if (_battleRegex.IsMatch(request.RequestedResource))
             {
                 return new ArenaApi(request);
+            }
+            if (_tradeRegex.IsMatch(request.RequestedResource))
+            {
+                return new TradeApi(request);
             }
 
             return null;

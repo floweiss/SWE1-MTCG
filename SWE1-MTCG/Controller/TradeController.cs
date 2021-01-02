@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SWE1_MTCG.Cards;
+using SWE1_MTCG.DataTransferObject;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Services;
 
@@ -16,32 +17,29 @@ namespace SWE1_MTCG.Controller
             _tradeService = tradeService;
         }
 
-        public List<Trade> GetAllTradesFor(User user)
+        public string GetAllTradesFor(string usertoken)
         {
-            return _tradeService.GetTradesFor(user);
+            return _tradeService.GetTradesFor(usertoken);
         }
 
-        public List<Trade> GetAllTrades()
+        public string GetAllTrades()
         {
             return _tradeService.GetAllTrades();
         }
 
-        public bool AddTrade(Trade trade)
+        public string AddTrade(TradeDTO trade, string usertoken)
         {
-            if (!trade.IsProperTrade())
-            {
-                return false;
-            }
-            return _tradeService.AddTrade(trade);
+            return _tradeService.AddTrade(trade, usertoken);
         }
 
-        public bool TradeCards(Trade trade, Card cardToTrade)
+        public string TradeCards(string tradeID, string cardToTradeID, string usertoken)
         {
-            if (!trade.IsMatchingRequest(cardToTrade))
-            {
-                return false;
-            }
-            return _tradeService.TradeCards(trade, cardToTrade);
+            return _tradeService.TradeCards(tradeID, cardToTradeID, usertoken);
+        }
+
+        public string RemoveTrade(string tradeID, string usertoken)
+        {
+            return _tradeService.RemoveTrade(tradeID, usertoken);
         }
     }
 }
