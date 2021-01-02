@@ -11,6 +11,7 @@ using SWE1_MTCG.Cards.Monsters;
 using SWE1_MTCG.Cards.Spells;
 using SWE1_MTCG.Services;
 using SWE1_MTCG.Controller;
+using SWE1_MTCG.DataTransferObject;
 
 
 namespace SWE1_MTCG.Test
@@ -31,58 +32,58 @@ namespace SWE1_MTCG.Test
         [Test]
         public void TestNotAddingInvalidTrade()
         {
-            Trade trade = new Trade(new User("testUser", "geheim"), null, null, 0);
+            TradeDTO trade = new TradeDTO("Trade1", "Card1", "spell", 10);
 
-            _tradeService.Setup(s => s.AddTrade(trade)).Returns(true);
+            _tradeService.Setup(s => s.AddTrade(trade, "user-token")).Returns("POST ERR - Trade already exists");
 
-            _tradeController.AddTrade(trade);
+            string result = _tradeController.AddTrade(trade, "user-token");
 
-            _tradeService.Verify(s => s.AddTrade(trade), Times.Never);
+            Assert.AreEqual("POST ERR - Trade already exists", result);
         }
 
         [Test]
         public void TestNotTradingWhenRequestedDamageNoMatched()
         {
             Card wizard = new Wizard("wizhar", "Harry Potter", 75, ElementType.Normal);
-            Trade trade = new Trade(new User("me", "secret"), wizard, "dragon", 80);
+            TradeDTO trade = new TradeDTO("Trade1", "wizhar", "dragon", 80);
 
             Card dragon = new Dragon("dravis", "Viserion", 70, ElementType.Fire);
 
-            _tradeService.Setup(s => s.TradeCards(trade, dragon));
+            _tradeService.Setup(s => s.TradeCards("Trade1", "dravis", "user-token")).Returns("POST ERR - Wrong type or too low damage for trade");
 
-            _tradeController.TradeCards(trade, dragon);
+            string result = _tradeController.TradeCards("Trade1", "dravis", "user-token");
 
-            _tradeService.Verify(s => s.TradeCards(trade, dragon), Times.Never);
+            Assert.AreEqual("POST ERR - Wrong type or too low damage for trade", result);
         }
 
         [Test]
         public void TestNotTradingWhenRequestedTypeNoMatched()
         {
             Card wizard = new Wizard("wizhar", "Harry Potter", 75, ElementType.Normal);
-            Trade trade = new Trade(new User("me", "secret"), wizard, "knight", 80);
+            TradeDTO trade = new TradeDTO("Trade1", "wizhar", "knight", 80);
 
             Card dragon = new Dragon("dravis", "Viserion", 90, ElementType.Water);
 
-            _tradeService.Setup(s => s.TradeCards(trade, dragon));
+            _tradeService.Setup(s => s.TradeCards("Trade1", "dravis", "user-token")).Returns("POST ERR - Wrong type or too low damage for trade") ;
 
-            _tradeController.TradeCards(trade, dragon);
+            string result = _tradeController.TradeCards("Trade1", "dravis", "user-token");
 
-            _tradeService.Verify(s => s.TradeCards(trade, dragon), Times.Never);
+            Assert.AreEqual("POST ERR - Wrong type or too low damage for trade", result);
         }
 
         [Test]
         public void TestTradingWhenRequestedMatched()
         {
             Card wizard = new Wizard("wizhar", "Harry Potter", 75, ElementType.Normal);
-            Trade trade = new Trade(new User("me", "secret"), wizard, "dragon", 70);
+            TradeDTO trade = new TradeDTO("Trade1", "wizhar", "dragon", 70);
 
-            Card dragon = new Dragon("dravis", "Viserion", 90, ElementType.Normal);
+            Card dragon = new Dragon("dravis", "Viserion", 90, ElementType.Fire);
 
-            _tradeService.Setup(s => s.TradeCards(trade, dragon));
+            _tradeService.Setup(s => s.TradeCards("Trade1", "dravis", "user-token")).Returns("POST OK - cards traded");
 
-            _tradeController.TradeCards(trade, dragon);
+            string result = _tradeController.TradeCards("Trade1", "dravis", "user-token");
 
-            _tradeService.Verify(s => s.TradeCards(trade, dragon), Times.Once);
+            Assert.AreEqual("POST OK - cards traded", result);
         }
     }
 }
