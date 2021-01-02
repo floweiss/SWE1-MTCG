@@ -10,6 +10,7 @@ using SWE1_MTCG.Cards.Monsters;
 using SWE1_MTCG.Cards.Spells;
 using SWE1_MTCG.Services;
 using SWE1_MTCG.Controller;
+using SWE1_MTCG.Server;
 
 
 namespace SWE1_MTCG.Test
@@ -25,29 +26,20 @@ namespace SWE1_MTCG.Test
         public void SetUp()
         {
             _user = new User("testuser", "supergeheim");
-            _userService = new Mock<IUserService>(MockBehavior.Strict);
+            _userService = new Mock<IUserService>();
             _userController = new UserController(_userService.Object);
         }
 
         /*[Test]
-        public void TestUserLoginReturnsFalseWhenUserNotRegistered()
-        {
-            _userService.Setup(s => s.IsRegistered(_user)).Returns(false);
-
-            bool isLoggedIn = _userController.Login(_user);
-
-            Assert.False(isLoggedIn);
-        }
-
-        [Test]
-        public void TestLoginShouldNotReturnNullAfterRegisterAndLogin()
+        public void TestClientSingletonHasOneUserAfterLogin()
         {
             _userService.Setup(s => s.IsRegistered(_user)).Returns(true);
-            _userService.Setup(s => s.Login(_user)).Returns(_user);
+            _userService.Setup(s => s.Login(_user)).Returns("POST OK - Authentication-Token: testuser-mtcgToken");
+            
+            string result = _userController.Login("testuser", "supergeheim");
 
-            _userController.Login(_user);
-
-            Assert.IsNotNull(_userController.User);
+            Console.WriteLine(result);
+            Assert.AreEqual(1, ClientSingleton.GetInstance.ClientMap.Count);
         }*/
     }
 }
