@@ -118,8 +118,10 @@ namespace SWE1_MTCG.Services
                 WaterSpell w => new WaterSpell(card2Deck.ID, card2Deck.Name, card2Deck.Damage),
             };
 
-            card1.Damage = card1.Damage * _elementEffectivenessService.CompareElements(card1.Type, card2.Type);
-            card2.Damage = card2.Damage * _elementEffectivenessService.CompareElements(card2.Type, card1.Type);
+            //card1.Damage = card1.Damage * _elementEffectivenessService.CompareElements(card1.Type, card2.Type);
+            //card2.Damage = card2.Damage * _elementEffectivenessService.CompareElements(card2.Type, card1.Type);
+            card1.EnhanceDamage(_elementEffectivenessService.CompareElements(card1.Type, card2.Type));
+            card2.EnhanceDamage(_elementEffectivenessService.CompareElements(card2.Type, card1.Type));
 
             // without special abilities
             /*int card1wins = card1 switch
@@ -133,7 +135,8 @@ namespace SWE1_MTCG.Services
             bool boosterCard1 = (random.Next(1, 21) == 20);
             if (boosterCard1)
             {
-                card1.Damage = card1.Damage * 10;
+                //card1.Damage = card1.Damage * 10;
+                card1.EnhanceDamage(10);
             }
 
             int card1wins = card1 switch

@@ -21,6 +21,11 @@ namespace SWE1_MTCG.Cards.Monsters
             return Damage >= damage;
         }
 
+        public override void EnhanceDamage(double enhancement)
+        {
+            Damage = Damage * enhancement;
+        }
+
         public override string ToCardString()
         {
             return "Card ID " + ID + ": Dragon " + Name + " of Element " + Type + " with Damage " + Damage;
