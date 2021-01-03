@@ -25,5 +25,10 @@ namespace SWE1_MTCG.Cards.Monsters
         {
             return "Card ID " + ID + ": Orc " + Name + " of Element " + Type + " with Damage " + Damage;
         }
+
+        public override string ToBattleString()
+        {
+            return "Orc " + Name + " of Element " + Type + " with Damage " + Damage;
+        }
     }
 }

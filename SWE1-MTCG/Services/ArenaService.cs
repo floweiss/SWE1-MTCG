@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Xml;
 using SWE1_MTCG.Cards;
 using SWE1_MTCG.Cards.Monsters;
+using SWE1_MTCG.Cards.Spells;
 using SWE1_MTCG.Enums;
 using SWE1_MTCG.Interfaces;
 using SWE1_MTCG.Server;
@@ -86,8 +87,37 @@ namespace SWE1_MTCG.Services
 
         private string Round(ref CardDeck deck1, ref CardDeck deck2, string username1, string username2)
         {
-            Card card1 = deck1.GetRandomCard();
-            Card card2 = deck2.GetRandomCard();
+            Card card1Deck = deck1.GetRandomCard();
+            Card card2Deck = deck2.GetRandomCard();
+
+            // create new cards instead of references
+            Card card1 = card1Deck switch
+            {
+                Dragon d => new Dragon(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                Elve e => new Elve(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                Goblin g => new Goblin(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                Knight k => new Knight(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                Kraken k => new Kraken(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                Orc o => new Orc(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                Wizard w => new Wizard(card1Deck.ID, card1Deck.Name, card1Deck.Damage, card1Deck.Type),
+                FireSpell f => new FireSpell(card1Deck.ID, card1Deck.Name, card1Deck.Damage),
+                NormalSpell n => new NormalSpell(card1Deck.ID, card1Deck.Name, card1Deck.Damage),
+                WaterSpell w => new WaterSpell(card1Deck.ID, card1Deck.Name, card1Deck.Damage),
+            };
+            Card card2 = card2Deck switch
+            {
+                Dragon d => new Dragon(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                Elve e => new Elve(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                Goblin g => new Goblin(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                Knight k => new Knight(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                Kraken k => new Kraken(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                Orc o => new Orc(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                Wizard w => new Wizard(card2Deck.ID, card2Deck.Name, card2Deck.Damage, card2Deck.Type),
+                FireSpell f => new FireSpell(card2Deck.ID, card2Deck.Name, card2Deck.Damage),
+                NormalSpell n => new NormalSpell(card2Deck.ID, card2Deck.Name, card2Deck.Damage),
+                WaterSpell w => new WaterSpell(card2Deck.ID, card2Deck.Name, card2Deck.Damage),
+            };
+
             card1.Damage = card1.Damage * _elementEffectivenessService.CompareElements(card1.Type, card2.Type);
             card2.Damage = card2.Damage * _elementEffectivenessService.CompareElements(card2.Type, card1.Type);
 
@@ -98,6 +128,13 @@ namespace SWE1_MTCG.Services
                 ISpell spell => spell.CompareDamage(card2.Damage) ? 1 : -1,
                 _ => 0
             };*/
+
+            Random random = new Random();
+            bool boosterCard1 = (random.Next(1, 21) == 20);
+            if (boosterCard1)
+            {
+                card1.Damage = card1.Damage * 10;
+            }
 
             int card1wins = card1 switch
             {
@@ -110,19 +147,40 @@ namespace SWE1_MTCG.Services
             string roundLog;
             if (card1wins == 1)
             {
-                deck1.AddCard(card2, true);
-                deck2.RemoveCard(card2);
-                roundLog = (card1.Name + " (" + username1 + ") won against " + card2.Name + " (" + username2 + ")");
+                deck1.AddCard(card2Deck, true);
+                deck2.RemoveCard(card2Deck);
+                if (boosterCard1)
+                {
+                    roundLog = (card1Deck.ToBattleString() + " (" + username1 + ") won with a booster against " + card2Deck.ToBattleString() + " (" + username2 + ")");
+                }
+                else
+                {
+                    roundLog = (card1Deck.ToBattleString() + " (" + username1 + ") won against " + card2Deck.ToBattleString() + " (" + username2 + ")");
+                }
             }
             else if (card1wins == -1)
             {
-                deck2.AddCard(card1, true);
-                deck1.RemoveCard(card1);
-                roundLog = (card1.Name + " (" + username1 + ") lost to " + card2.Name + " (" + username2 + ")");
+                deck2.AddCard(card1Deck, true);
+                deck1.RemoveCard(card1Deck);
+                if (boosterCard1)
+                {
+                    roundLog = (card1Deck.ToBattleString() + " (" + username1 + ") lost although a booster to " + card2Deck.ToBattleString() + " (" + username2 + ")");
+                }
+                else
+                {
+                    roundLog = (card1Deck.ToBattleString() + " (" + username1 + ") lost to " + card2Deck.ToBattleString() + " (" + username2 + ")");
+                }
             }
             else
             {
-                roundLog = (card1.Name + " (" + username1 + ") drew with " + card2.Name + " (" + username2 + ")");
+                if (boosterCard1)
+                {
+                    roundLog = (card1Deck.ToBattleString() + " (" + username1 + ") drew although a booster with " + card2Deck.ToBattleString() + " (" + username2 + ")");
+                }
+                else
+                {
+                    roundLog = (card1Deck.ToBattleString() + " (" + username1 + ") drew with " + card2Deck.ToBattleString() + " (" + username2 + ")");
+                }
             }
 
             return roundLog;

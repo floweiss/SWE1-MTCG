@@ -37,5 +37,10 @@ namespace SWE1_MTCG.Cards.Monsters
         {
             return "Card ID " + ID + ": Elve " + Name + " of Element " + Type + " with Damage " + Damage;
         }
+
+        public override string ToBattleString()
+        {
+            return "Elve " + Name + " of Element " + Type + " with Damage " + Damage;
+        }
     }
 }

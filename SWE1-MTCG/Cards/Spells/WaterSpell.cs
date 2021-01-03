@@ -25,5 +25,10 @@ namespace SWE1_MTCG.Cards.Spells
         {
             return "Card ID " + ID + ": Spell " + Name + " of Element " + Type + " with Damage " + Damage;
         }
+
+        public override string ToBattleString()
+        {
+            return "Spell " + Name + " of Element " + Type + " with Damage " + Damage;
+        }
     }
 }

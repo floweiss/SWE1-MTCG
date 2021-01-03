@@ -30,5 +30,10 @@ namespace SWE1_MTCG.Cards.Monsters
         {
             return "Card ID " + ID + ": Wizard " + Name + " of Element " + Type + " with Damage " + Damage;
         }
+
+        public override string ToBattleString()
+        {
+            return "Wizard " + Name + " of Element " + Type + " with Damage " + Damage;
+        }
     }
 }
