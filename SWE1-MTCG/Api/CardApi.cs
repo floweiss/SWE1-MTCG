@@ -57,6 +57,10 @@ namespace SWE1_MTCG.Api
             {
                 return "POST ERR - No valid Card";
             }
+            else if (_card.CardType.ToLower() != "dragon" && _card.CardType.ToLower() != "elve" && _card.CardType.ToLower() != "goblin" && _card.CardType.ToLower() != "knight" && _card.CardType.ToLower() != "kraken" && _card.CardType.ToLower() != "orc" && _card.CardType.ToLower() != "wizard" && _card.CardType.ToLower() != "firespell" && _card.CardType.ToLower() != "normalspell" && _card.CardType.ToLower() != "waterspell")
+            {
+                return "POST ERR - Invalid card type";
+            }
 
             string usertoken;
             if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))

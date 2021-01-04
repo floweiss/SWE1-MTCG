@@ -17,7 +17,14 @@ namespace SWE1_MTCG.Services
         public void PersistUserData(User user, string usertoken)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return;
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -69,7 +76,14 @@ namespace SWE1_MTCG.Services
         public void LoadUserData(User user, string usertoken)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return;
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;

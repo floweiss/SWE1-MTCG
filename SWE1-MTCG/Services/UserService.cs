@@ -19,7 +19,15 @@ namespace SWE1_MTCG.Services
         {
             // http://zetcode.com/csharp/postgresql/
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "POST ERR - No DB connection";
+            }
+            
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -56,7 +64,14 @@ namespace SWE1_MTCG.Services
         public string Login(User user)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "POST ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -96,10 +111,17 @@ namespace SWE1_MTCG.Services
             return false;
         }
 
-        public bool IsRegistered(User user)
+        public int IsRegistered(User user)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return 0;
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -113,11 +135,11 @@ namespace SWE1_MTCG.Services
             {
                 if (reader.GetString(0) == user.Username)
                 {
-                    return true;
+                    return 1;
                 }
             }
             reader.Close();
-            return false;
+            return -1;
         }
 
         public string AquirePackage(string usertoken, string packageId)
@@ -130,7 +152,14 @@ namespace SWE1_MTCG.Services
             }
 
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "POST ERR - No DB connection";
+            }
 
             List<string> cardIds = null;
             string sqlAllPackages = "SELECT * FROM packages";
@@ -181,7 +210,14 @@ namespace SWE1_MTCG.Services
         public string ShowBio(string username)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "GET ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -211,7 +247,14 @@ namespace SWE1_MTCG.Services
         public string EditBio(UserBioDTO userBio, string user)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "PUT ERR - No DB connection";
+            }
 
             string sqlUpdate =
                 "UPDATE users SET fullname = @fullname, bio = @bio, image = @image WHERE username = @findUser";

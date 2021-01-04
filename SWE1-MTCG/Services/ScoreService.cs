@@ -22,7 +22,14 @@ namespace SWE1_MTCG.Services
             }*/
 
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "GET ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;

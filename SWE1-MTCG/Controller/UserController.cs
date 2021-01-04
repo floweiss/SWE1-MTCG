@@ -26,9 +26,13 @@ namespace SWE1_MTCG.Controller
         {
             User user = new User(username, password);
 
-            if (_userService.IsRegistered(user))
+            if (_userService.IsRegistered(user) == 1)
             {
                 return _userService.Login(user);
+            }
+            if (_userService.IsRegistered(user) == 0)
+            {
+                return "POST ERR - No DB connection";
             }
 
             return "POST ERR - Login failed";

@@ -14,7 +14,7 @@ namespace SWE1_MTCG.Services
 
         bool isLoggedIn(RequestContext request);
 
-        bool IsRegistered(User user);
+        int IsRegistered(User user);
 
         string AquirePackage(string usertoken, string packageId);
 

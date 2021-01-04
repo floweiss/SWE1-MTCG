@@ -21,7 +21,12 @@ namespace SWE1_MTCG.Server
             ContentType = ((content.StartsWith("{") && content.EndsWith("}")) || (content.StartsWith("[") && content.EndsWith("]"))) ? "application/json" : "text/plain";
             ContentLength = content.Length;
             Content = content;
-            if (Content.StartsWith("ERR") || Content.StartsWith("POST ERR"))
+            if (Content.EndsWith("ERR - No DB connection"))
+            {
+                StatusCode = 500;
+                StatusString = "Internal Server Error";
+            }
+            else if (Content.StartsWith("ERR") || Content.StartsWith("POST ERR"))
             {
                 StatusCode = 400;
                 StatusString = "Bad Request";

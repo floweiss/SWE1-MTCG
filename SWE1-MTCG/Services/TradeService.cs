@@ -23,7 +23,14 @@ namespace SWE1_MTCG.Services
         public string GetAllTrades()
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "GET ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -45,7 +52,14 @@ namespace SWE1_MTCG.Services
         public string AddTrade(TradeDTO trade, string usertoken)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "POST ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -90,7 +104,14 @@ namespace SWE1_MTCG.Services
         public string TradeCards(string tradeID, string cardToTradeID, string usertoken)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "POST ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -162,7 +183,14 @@ namespace SWE1_MTCG.Services
         public string RemoveTrade(string tradeID, string usertoken)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "DELETE ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;

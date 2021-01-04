@@ -18,7 +18,14 @@ namespace SWE1_MTCG.Services
         public string CreatePackage(PackageDTO package)
         {
             using NpgsqlConnection con = new NpgsqlConnection(_cs);
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                return "POST ERR - No DB connection";
+            }
 
             using NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = con;
