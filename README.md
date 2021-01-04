@@ -66,4 +66,7 @@ Dies muss in folgenden Files durchgeführt werden:
 
 ## Lessons Learned
 
-Verbesserungswürdig ist auf jeden Fall der Umgang mit Requests, die nicht korrekt sind. Momentan wird oft jeder einzelne Wert einer Request (z.B.: CardID, CardType, Damage, usw.) überprüft und anschließend ein Return String mit einem entsprechendem Error zurückgegeben. Dies könnte besser mit Exceptions gelöst werden.
+Verbesserungswürdig ist auf jeden Fall der Umgang mit Requests, die nicht korrekt sind.
+Momentan wird oft jeder einzelne Wert einer Request (z.B.: CardID, CardType, Damage, usw.) überprüft und anschließend ein Return String mit einem entsprechendem Error zurückgegeben.
+Dies könnte besser mit Exceptions gelöst werden.  
+Weiters wäre es gut gewesen ein Config-File zu haben, in dem übergreifende Informationen, wie der Connection String der Datenbank, hinterlegt werden.
