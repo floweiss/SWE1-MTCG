@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SWE1_MTCG.Arena">
+    <Position X="15.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Arena.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Dragon">
+    <Position X="5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Monsters\Dragon.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Elve">
+    <Position X="8.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEIAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Monsters\Elve.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Goblin">
+    <Position X="10.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Cards\Monsters\Goblin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Knight">
+    <Position X="12" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQABIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Monsters\Knight.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Kraken">
+    <Position X="13.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Cards\Monsters\Kraken.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Orc">
+    <Position X="3.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Monsters\Orc.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Monsters.Wizard">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAABAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Monsters\Wizard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Spells.FireSpell">
+    <Position X="17.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Spells\FireSpell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Spells.NormalSpell">
+    <Position X="16" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Spells\NormalSpell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Spells.WaterSpell">
+    <Position X="19.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Spells\WaterSpell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.Card">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAKAAAAAkAAAAAAQAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Cards\Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.CardDeck">
+    <Position X="5.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABAAAAEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\CardDeck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.CardPackage" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAASAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Cards\CardPackage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Cards.CardStack">
+    <Position X="3.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAQAAAAAAAAAQIEAAAAIAAIAAAAAAAA=</HashCode>
+      <FileName>Cards\CardStack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.ArenaController">
+    <Position X="3.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ArenaController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Services.ElementEffectivenessService">
+    <Position X="17.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Services\ElementEffectivenessService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.User">
+    <Position X="11.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAIAAAAQAwAACAgAgQABAAAAACBAEAAAACA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Trade">
+    <Position X="13.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAgAAAAAAAAAABAAAAAAAAAACAAAAAkA=</HashCode>
+      <FileName>Trade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Api.ApiService" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQgACEAAAoAAIAQAAAAAAAQAAAAAAAAAICABAAIA=</HashCode>
+      <FileName>Api\ApiService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.ArenaApi" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAUAAAAAgCBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\ArenaApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.CardApi" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAgAAUAAAAABCBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\CardApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.DeckApi" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAACAAAAAUAAEAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\DeckApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.PackageApi" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAACAAAAAUAQAAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\PackageApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.ScoreApi" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAUAAAAAACBAAAAAAAAAAQCAAAAAA=</HashCode>
+      <FileName>Api\ScoreApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.SessionApi" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAUAAQAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\SessionApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.StatsApi" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAUIAAAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\StatsApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.TransactionPackageApi" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAUgAQAAACBAAAACAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\TransactionPackageApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.TradeApi" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAFAAAACAAAAAUAAAAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\TradeApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Api.UserApi" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAACAAAAAUAAQAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\UserApi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.CardController">
+    <Position X="5.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Controller\CardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.DeckController">
+    <Position X="7.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Controller\DeckController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.PackageController">
+    <Position X="9.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAQAAAAAAAAAABAAAAAAAABAAA=</HashCode>
+      <FileName>Controller\PackageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.ScoreController">
+    <Position X="11.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ScoreController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.StatsController">
+    <Position X="15.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Controller\StatsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.TradeController">
+    <Position X="17.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAQAAwAAAAAQAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Controller\TradeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Controller.UserController">
+    <Position X="21.25" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAgAAQgAAAAAAAAAAAAAAAAABAAAAAAAUAAAAAAA=</HashCode>
+      <FileName>Controller\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Services.ArenaService">
+    <Position X="3.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAABAAAAQAAACAEAAAAQAAAAEAAAAAIAAgA=</HashCode>
+      <FileName>Services\ArenaService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.CardService">
+    <Position X="5.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABQAA=</HashCode>
+      <FileName>Services\CardService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.DeckService">
+    <Position X="7.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAEAAAAAAAAAAARAAA=</HashCode>
+      <FileName>Services\DeckService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.PackageService" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAABAAA=</HashCode>
+      <FileName>Services\PackageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.ScoreService" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Services\ScoreService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.StatsService" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\StatsService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.TradeService" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABEAAAwAAAAAQAAAAAAAAAACAAAAABAAA=</HashCode>
+      <FileName>Services\TradeService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.UserDataService" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Services\UserDataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Services.UserService" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAQgABAAAAAAAAAAAAAAABAAAAAAEQAAABAgA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SWE1_MTCG.Server.Webserver">
+    <Position X="3.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAgACAAAAgACAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Server\Webserver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Server.RequestContext">
+    <Position X="5.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAgAAAAAgAIAAAKAAAAAAABAAAAAAAAQAAAA=</HashCode>
+      <FileName>Server\RequestContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Server.ResponseContext">
+    <Position X="7.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAACBAAIAAQAARAAEA=</HashCode>
+      <FileName>Server\ResponseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Server.ClientSingleton">
+    <Position X="9.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAEAAAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Server\ClientSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.Server.ArenaSingleton">
+    <Position X="11.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAEAAAAABAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Server\ArenaSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.AquirePackageDTO">
+    <Position X="3.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObject\AquirePackageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.CardDTO">
+    <Position X="5.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAEAAAAAAAgAAAQAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObject\CardDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.CardIdsDTO">
+    <Position X="7.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObject\CardIdsDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.PackageDTO">
+    <Position X="9.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObject\PackageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.TradeDTO">
+    <Position X="11.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAIAA=</HashCode>
+      <FileName>DataTransferObject\TradeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.UserBioDTO">
+    <Position X="13.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObject\UserBioDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SWE1_MTCG.DataTransferObject.UserDTO">
+    <Position X="15.25" Y="32.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObject\UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SWE1_MTCG.Interfaces.ICardCollection">
+    <Position X="9.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICardCollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Interfaces.IMonster">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMonster.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Interfaces.ISpell">
+    <Position X="17.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISpell.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Api.IApi">
+    <Position X="15.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAEAAAAAACBAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Api\IApi.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Api.IApiService">
+    <Position X="15.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Api\IApiService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IArenaService">
+    <Position X="3.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IArenaService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.ICardService">
+    <Position X="5.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Services\ICardService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IDeckService">
+    <Position X="7.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Services\IDeckService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IPackageService">
+    <Position X="9.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAABAAA=</HashCode>
+      <FileName>Services\IPackageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IScoreService">
+    <Position X="11.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IScoreService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IStatsService">
+    <Position X="15.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IStatsService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.ITradeService">
+    <Position X="17.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAwAAAAAQAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Services\ITradeService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IUserDataService">
+    <Position X="18.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IUserDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SWE1_MTCG.Services.IUserService">
+    <Position X="21.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAQgAAAAAAAAAAAAAAAAABAAAAAAEQAAAAAgA=</HashCode>
+      <FileName>Services\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SWE1_MTCG.Enums.ElementType">
+    <Position X="17.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\ElementType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
