@@ -40,9 +40,11 @@ namespace SWE1_MTCG.Services
 
             Random random = new Random();
             int roundNumber;
+            bool roundsStartAtZero = false;
             if (random.Next(0, 2) == 0)
             {
                 roundNumber = 0;
+                roundsStartAtZero = true;
             }
             else
             {
@@ -62,12 +64,20 @@ namespace SWE1_MTCG.Services
                 {
                     roundLog += Round(ref deck2, ref deck1, user2.Username, user1.Username);
                 }
-                battleLog.Add("Round "+ roundNumber, roundLog);
+
+                if (roundsStartAtZero)
+                {
+                    battleLog.Add("Round " + (roundNumber + 1), roundLog);
+                }
+                else
+                {
+                    battleLog.Add("Round " + roundNumber, roundLog);
+                }
 
                 roundNumber++;
             }
 
-            if (roundNumber == 100)
+            if ((roundNumber == 100 && !roundsStartAtZero) || (roundNumber == 99 && roundsStartAtZero))
             {
                 battleLog["Result"] = "DRAW";
                 return Tuple.Create(0, JsonSerializer.Serialize(battleLog));

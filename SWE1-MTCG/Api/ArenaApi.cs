@@ -28,8 +28,8 @@ namespace SWE1_MTCG.Api
         {
             switch (_request.HttpMethod)
             {
-                case "GET":
-                    return GetMethod();
+                case "POST":
+                    return PostMethod();
 
                 default:
                     return "Method ERR";
@@ -38,21 +38,16 @@ namespace SWE1_MTCG.Api
 
         public string PostMethod()
         {
-            throw new NotImplementedException();
-        }
-
-        public string GetMethod()
-        {
             string usertoken;
             if (!_request.CustomHeader.TryGetValue("Authorization", out usertoken))
             {
-                return "GET ERR - No authorization header";
+                return "POST ERR - No authorization header";
             }
 
             usertoken = usertoken.Substring(6, usertoken.Length - 6);
             if (!ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
             {
-                return "GET ERR - Not logged in";
+                return "POST ERR - Not logged in";
             }
 
             User user;
@@ -60,7 +55,7 @@ namespace SWE1_MTCG.Api
 
             if (user.Deck.CardCollection.Count != 4)
             {
-                return "GET ERR - Deck not configured";
+                return "POST ERR - Deck not configured";
             }
             user.SetReadyForBattle();
             ClientSingleton.GetInstance.ClientMap.AddOrUpdate(usertoken, user, (key, oldValue) => user);
@@ -88,7 +83,7 @@ namespace SWE1_MTCG.Api
                 // Waiting for second thread to finish battle
                 while (ArenaSingleton.GetInstance.BattleLogs.IsEmpty)
                 {
-                    Thread.Sleep(250);
+                    Thread.Sleep(100);
                 }
 
                 ArenaSingleton.GetInstance.BattleLogs.TryPop(out battleLog);
@@ -101,6 +96,11 @@ namespace SWE1_MTCG.Api
             }
 
             return battleLog;
+        }
+
+        public string GetMethod()
+        {
+            throw new NotImplementedException();
         }
 
         public string PutMethod()
