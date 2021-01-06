@@ -4,9 +4,9 @@
 
 Monster Trading Cards Game (MTCG) von Florian Weiss im Zuge von SWE1  
 Link zum GitHub Repository: https://github.com/floweiss/SWE1-MTCG  
-Um die Applikation starten zu können, muss der Connection String für die DB je nach Setup angepasst werden
+Um die Applikation verwenden zu können, muss der Connection String für die DB je nach Setup angepasst werden
 ```
-private string _cs = "Host=localhost;Username=postgres;Password=postgres123;Database=postgres";
+private string _cs = "Host=localhost;Username=postgres;Password=*******;Database=postgres";
 ```
   
 Dies muss in folgenden Files durchgeführt werden:
@@ -52,6 +52,7 @@ Dies muss in folgenden Files durchgeführt werden:
 
 
 ## Tests
+
 ### Unit Tests
 * Mit den Unit Tests wurde die grundlegende Funktion der wichtigsten Komponenten des Servers (Request- und Response-Context, ApiService) und des MTCG (Battle, Deck, Stack, ElementTypes, Cards, Trades) getestet
 * Weitere Unit Tests beinhalten das Testen der MessageApi, bei der die grundlegenden Funktionen einer API (HTTP-Methoden) getestet wurden
@@ -60,3 +61,12 @@ Dies muss in folgenden Files durchgeführt werden:
 ### Integration Tests
 * Ein kompletter Test des MTCG wurde mittels eines curl Skriptes durchgeführt
 * Einzelne APIs wurden durch einzelne Requests mit dem Tool Postman getestet
+
+
+
+## Lessons Learned
+
+Verbesserungswürdig ist auf jeden Fall der Umgang mit Requests, die nicht korrekt sind.
+Momentan wird oft jeder einzelne Wert einer Request (z.B.: CardID, CardType, Damage, usw.) überprüft und anschließend ein Return String mit einem entsprechendem Error zurückgegeben.
+Dies könnte besser mit Exceptions gelöst werden.  
+Weiters wäre es gut gewesen ein Config-File zu haben, in dem übergreifende Informationen, wie der Connection String der Datenbank, hinterlegt werden.
