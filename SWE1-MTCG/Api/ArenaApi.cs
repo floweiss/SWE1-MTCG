@@ -57,6 +57,11 @@ namespace SWE1_MTCG.Api
 
             User user;
             ClientSingleton.GetInstance.ClientMap.TryGetValue(usertoken, out user);
+
+            if (user.Deck.CardCollection.Count != 4)
+            {
+                return "GET ERR - Deck not configured";
+            }
             user.SetReadyForBattle();
             ClientSingleton.GetInstance.ClientMap.AddOrUpdate(usertoken, user, (key, oldValue) => user);
 

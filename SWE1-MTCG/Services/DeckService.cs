@@ -46,6 +46,41 @@ namespace SWE1_MTCG.Services
 
         public string ConfigureDeck(string usertoken, List<string> cardIds, bool updateGranted)
         {
+            using NpgsqlConnection con = new NpgsqlConnection(_cs);
+            try
+            {
+                con.Open();
+            }
+            catch (PostgresException e)
+            {
+                string message = updateGranted ? "PUT" : "POST";
+                return message + " ERR - No DB connection";
+            }
+
+            using NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS trades(id VARCHAR(255), cardToTrade VARCHAR(255), type VARCHAR(255), minimumDamage DOUBLE PRECISION, usertoken VARCHAR(255))";
+            cmd.ExecuteNonQuery();
+
+            string sqlGetTrades = "SELECT * FROM trades";
+            using NpgsqlCommand cmdGetTrades = new NpgsqlCommand(sqlGetTrades, con);
+            using NpgsqlDataReader reader = cmdGetTrades.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.GetString(4) == usertoken)
+                {
+                    foreach (var cardId in cardIds)
+                    {
+                        if (cardId == reader.GetString(1))
+                        {
+                            string message = updateGranted ? "PUT" : "POST";
+                            return message + " ERR - At least one Card in Trade";
+                        }
+                    }
+                }
+            }
+            reader.Close();
+
             User user = null;
             if (ClientSingleton.GetInstance.ClientMap.ContainsKey(usertoken))
             {
