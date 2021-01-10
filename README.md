@@ -39,8 +39,9 @@ Dies muss in folgenden Files durchgeführt werden:
 * Es gibt folgenden Tables:
     * Cards (ID, Name, CardType, Element, Damage)
     * Packages (ID, CardIDs)
-    * Users (Username, Hashed PW, Fullname, Bio, Image)
+    * Trades (ID, CardToTrade, Type, MinimumDamage, Usertoken)
     * Userdata (Token, Coins, ELO, Deck-CardIDs, Stack-CardIDs)
+    * Users (Username, Password (hashed), Fullname, Bio, Image)
 * Für die Speicherung von Daten aus dem ClientSingleton in die DB gibt es einen eigenen Service (UserDataService)
 
 ### Battle
@@ -59,7 +60,7 @@ Dies muss in folgenden Files durchgeführt werden:
 * Die eigentlichen durchführenden Units (Services) wurden bei den MessageApi Tests gemockt, da diese wirklich auf das File-System bzw. beim MTCG auf die PostgreSQL Datenbank zugreifen und dies nicht wirklich testbar ist, deshalb wurde auch auf weitere API-Tests verzichtet
 
 ### Integration Tests
-* Ein kompletter Test des MTCG wurde mittels eines curl Skriptes durchgeführt
+* Ein kompletter Test des MTCG wurde mittels eines curl Skriptes durchgeführt, dieses ist leicht abgewandelt im Vergleich zum vorgegebenen Skript
 * Einzelne APIs wurden durch einzelne Requests mit dem Tool Postman getestet
 
 
@@ -69,4 +70,6 @@ Dies muss in folgenden Files durchgeführt werden:
 Verbesserungswürdig ist auf jeden Fall der Umgang mit Requests, die nicht korrekt sind.
 Momentan wird oft jeder einzelne Wert einer Request (z.B.: CardID, CardType, Damage, usw.) überprüft und anschließend ein Return String mit einem entsprechendem Error zurückgegeben.
 Dies könnte besser mit Exceptions gelöst werden.  
-Weiters wäre es gut gewesen ein Config-File zu haben, in dem übergreifende Informationen, wie der Connection String der Datenbank, hinterlegt werden.
+Weiters wäre es gut gewesen ein Config-File zu haben, in dem übergreifende Informationen, wie der Connection String der Datenbank, hinterlegt werden.  
+Auch die Abhandlung des Battles wäre sicherlich eleganter möglich gewesen, da bei mehreren Battles gleichzeitig die verwendete Methode vermutlich zu einem Durcheinander der BattleLogs führen würde.
+Diesen Fall (mehrere Battles) habe ich aber nicht getestet, weil er mir in unserer Situation als nicht so relevant vorgekommen ist.
